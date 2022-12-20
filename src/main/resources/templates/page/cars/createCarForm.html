@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/createCarForm.css}"/>
+</th:block>
+<!-- list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script type="text/javascript" th:src="@{/js/createCarForm.js}"></script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <div class="container">
+
+    <h2 class="mt-5 mb-3" style="text-align: center">차량 입 출고 관리대장 작성</h2>
+
+    <form>
+      <div class="mb-3">
+        <label for="carType" class="form-label">차량종류</label>
+        <input type="text" class="form-control" id="carType" placeholder="차량종류를 입력하세요">
+      </div>
+      <div class="mb-3">
+        <label for="carNumber" class="form-label">차량번호</label>
+        <input type="text" class="form-control" id="carNumber" placeholder="차량번호를 입력하세요">
+      </div>
+      <div class="mb-3">
+        <label for="phoneNumber" class="form-label">핸드폰</label>
+        <input type="text" class="form-control" id="phoneNumber" placeholder="'-'뺴고 입력하세요">
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label for="createDate" class="form-label">입고날짜</label>
+          <input type="date" class="form-control" id="createDate">
+        </div>
+        <div class="col">
+          <label for="releaseDate" class="form-label">출고날짜</label>
+          <input type="date" class="form-control" id="releaseDate">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="vat" class="form-label">부과세</label>
+        <input type="number" class="form-control" id="vat" placeholder="부과세를 입력하세요">
+      </div>
+      <div  style="display: flex;" class="form-check mb-3">
+        <div class="col">
+          <input class="form-check-input" type="checkbox" value="" id="status">
+          <label class="form-check-label" for="status">
+            사장확인
+          </label>
+        </div>
+        <div class="col">
+          <input class="form-check-input" type="checkbox" value="" id="tow">
+          <label class="form-check-label" for="tow">
+            견인유무
+          </label>
+        </div>
+      </div>
+      <div class="form-floating mb-5">
+        <textarea class="form-control" placeholder="적요" id="comment" style="height: 100px"></textarea>
+        <label for="comment">적요</label>
+      </div>
+      <div style="text-align: right">
+        <button type="submit" class="btn btn-primary">완료</button>
+        <button type="button" class="btn btn-danger">취소</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+</html>
