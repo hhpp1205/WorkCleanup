@@ -23,10 +23,11 @@ public class Insurance {
 
     private String name;                //보험명
 
-
-
     @OneToMany(mappedBy = "insurance")
     private List<CarInsurance> carInsurances;
 
 
+    public Insurance(String name) {
+        this.name = name;
+    }
 }

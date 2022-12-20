@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+<!--      <link rel="stylesheet" th:href="@{/css/index.css}" >-->
+</th:block>
+<!-- list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+
+  <h2 style="text-align: center" class="mt-5">목록</h2>
+
+<!--  <form th:action="@{/static}" th:object="${from}" method="post">-->
+<!--    <div class="row">-->
+<!--      <div class="col">-->
+<!--        <label th:for="carNumber" class="form-label">차량번호</label>-->
+<!--        <input th:field="*{carNumber}" type="text" class="form-control"  placeholder="차량번호를 입력하세요">-->
+<!--      </div>-->
+<!--      <div class="col">-->
+<!--        <label th:for="phoneNumber" class="form-label">연락처</label>-->
+<!--        <input th:field="*{phoneNumber}" type="number" class="form-control"  placeholder="-를 빼고 입력하세요">-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </form>-->
+
+  <div class="container">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">차량번호</th>
+        <th scope="col">차종</th>
+        <th scope="col">연락처</th>
+        <th scope="col">입고날짜</th>
+        <th scope="col">출고날짜</th>
+        <th scope="col">보험</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>@mdo</td>
+        <td>@mdo</td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+</html>
+

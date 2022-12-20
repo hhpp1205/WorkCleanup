@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/createCarForm.css}"/>
+</th:block>
+<!-- list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script type="text/javascript" th:src="@{/js/createCarForm.js}"></script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <div class="container">
+
+    <h2 class="mt-5 mb-3" style="text-align: center">보험 생성</h2>
+
+    <form>
+      <div class="mb-3">
+        <label for="name" class="form-label">보험이름</label>
+        <input type="text" class="form-control" id="name" placeholder="보험이름을 입력하세요">
+      </div>
+      <div style="text-align: right">
+        <button type="submit" class="btn btn-primary">완료</button>
+        <button type="button" class="btn btn-danger">취소</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+</html>

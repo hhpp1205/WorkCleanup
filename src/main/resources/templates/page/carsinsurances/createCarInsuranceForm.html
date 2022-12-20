@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/createCarForm.css}"/>
+</th:block>
+<!-- list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script type="text/javascript" th:src="@{/js/createCarForm.js}"></script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <div class="container">
+
+    <h2 class="mt-5 mb-5" style="text-align: center">보험 수리비 명세표 추가</h2>
+    <form>
+      <div class="mb-3" style="display: flex">
+        <select class="form-select" aria-label="Default select example">
+          <option selected>==차량선택==</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+        <select class="form-select" aria-label="Default select example">
+          <option selected>==보험선택==</option>
+          <option value="1">One</option>
+          <option value="2">Two</option>
+          <option value="3">Three</option>
+        </select>
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label for="createDate" class="form-label">청구일자</label>
+          <input type="date" class="form-control" id="createDate">
+        </div>
+        <div class="col">
+          <label for="paymentDate" class="form-label">입금일자</label>
+          <input type="date" class="form-control" id="paymentDate">
+        </div>
+      </div>
+      <div class="mb-3">
+        <label for="amount" class="form-label">지급액</label>
+        <input type="number" class="form-control" id="amount" placeholder="지급액을 입력하세요">
+      </div>
+      <div class="mb-3">
+        <label for="excess" class="form-label">면책금</label>
+        <input type="number" class="form-control" id="excess" placeholder="면책금을 입력하세요">
+      </div>
+      <div style="text-align: right">
+        <button type="submit" class="btn btn-primary">완료</button>
+        <button type="button" class="btn btn-danger">취소</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+</html>

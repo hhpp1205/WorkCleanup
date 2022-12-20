@@ -1,5 +1,6 @@
 package cleanup.work.workcleanup.service;
 
+import cleanup.work.workcleanup.controller.form.InsuranceForm;
 import cleanup.work.workcleanup.entity.Insurance;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,7 +17,9 @@ public class InsuranceService {
     private final InsuranceRepository insuranceRepository;
 
     @Transactional
-    public Long createInsurance(Insurance insurance) {
+    public Long createInsurance(InsuranceForm form) {
+        Insurance insurance = new Insurance(form.getName());
+
         validateDuplicateInsurance(insurance);
         insuranceRepository.save(insurance);
         return insurance.getId();
