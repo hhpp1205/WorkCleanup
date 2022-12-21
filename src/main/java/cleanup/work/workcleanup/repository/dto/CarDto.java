@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class CarDto {
 
+    private Long id;
     private String carType;            //차종
     private String phoneNumber;         //핸드폰번호
     private String carNumber;           //차량번호
@@ -20,5 +21,11 @@ public class CarDto {
     private String comment;             //적요
     private Boolean status;              //사장확인
     private Boolean tow;                 //견인 유무
+
+    public CarDto(Long id, String carType, String carNumber) {
+        this.id = id;
+        this.carType = carType;
+        this.carNumber = carNumber;
+    }
 
 }

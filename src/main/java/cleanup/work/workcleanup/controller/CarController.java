@@ -3,6 +3,7 @@ package cleanup.work.workcleanup.controller;
 import cleanup.work.workcleanup.controller.form.CarForm;
 import cleanup.work.workcleanup.entity.Car;
 import cleanup.work.workcleanup.repository.CarRepository;
+import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.service.CarService;
 import cleanup.work.workcleanup.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
@@ -32,18 +33,26 @@ public class CarController {
     }
 
     @GetMapping("/new")
-    public String createForm() {
+    public String createForm(Model model) {
+        model.addAttribute("carForm", new CarForm());
         return "page/cars/createCarForm";
     }
 
     @PostMapping("/new")
     public String create(CarForm form) {
         carService.createCar(form);
-        return "redirect:/";
+        return "redirect:/cars/list";
     }
 
-    @GetMapping("{id}/edit")
-    public String updateForm(@PathVariable Long carId, CarForm form) {
+    @GetMapping("{carId}/edit")
+    public String updateForm(@PathVariable Long carId, Model model) {
+        CarForm carForm = carService.findCarById(carId);
+        model.addAttribute("carForm", carForm);
+        return "page/cars/updateCarForm";
+    }
+
+    @PostMapping("{carId}/edit")
+    public String updateForm(@PathVariable("carId") Long carId, CarForm form) {
         carService.updateCar(carId, form);
         return "redirect:/cars/list";
     }

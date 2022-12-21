@@ -1,11 +1,15 @@
 package cleanup.work.workcleanup.entity;
 
+import cleanup.work.workcleanup.controller.form.CarForm;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static cleanup.work.workcleanup.controller.form.CarForm.*;
+import static cleanup.work.workcleanup.entity.QCar.car;
 
 @Entity
 @Getter @Setter
@@ -44,5 +48,19 @@ public class Car {
         this.status = status;
         this.tow = tow;
         this.carInsurances = carInsurances;
+    }
+
+    public CarForm toCarForm() {
+               return CarForm.builder()
+                .carType(carType)
+                .phoneNumber(phoneNumber)
+                .carNumber(carNumber)
+                .createDate(localDateTimeDateToLocalDate(createDate))
+                .releaseDate(localDateTimeDateToLocalDate(releaseDate))
+                .vat(vat)
+                .comment(comment)
+                .status(status)
+                .tow(tow)
+                .build();
     }
 }

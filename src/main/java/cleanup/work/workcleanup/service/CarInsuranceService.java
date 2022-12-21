@@ -1,5 +1,7 @@
 package cleanup.work.workcleanup.service;
 
+import cleanup.work.workcleanup.entity.Car;
+import cleanup.work.workcleanup.entity.Insurance;
 import cleanup.work.workcleanup.repository.CarInsuranceRepository;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
@@ -9,6 +11,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
 
 
 /**
@@ -26,11 +31,11 @@ public class CarInsuranceService {
     private final InsuranceRepository insuranceRepository;
 
     public List<CarDto> getCarlist() {
-        // TODO: 2022-12-20 차량 목록 불러오기
-        return null;
+        List<Car> carList = carRepository.findCarByStatusFalse();
+
+        return carList.stream()
+                .map(c -> new CarDto(c.getId(), c.getCarType(), c.getCarNumber()))
+                .collect(toList());
     }
 
-//    public Long createCarInsurance(Long carId, Long insuranceId,) {
-//
-//    }
 }

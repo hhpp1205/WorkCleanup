@@ -21,16 +21,14 @@
     <form>
       <div class="mb-3" style="display: flex">
         <select class="form-select" aria-label="Default select example">
-          <option selected>==차량선택==</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="" selected>==차량선택==</option>
+          <option th:each="car : ${cars}" th:value="${car.id}"
+                  th:text="${car.carNumber + ',   ' + car.carType}"></option>
         </select>
         <select class="form-select" aria-label="Default select example">
-          <option selected>==보험선택==</option>
-          <option value="1">One</option>
-          <option value="2">Two</option>
-          <option value="3">Three</option>
+          <option value="" selected>==보험선택==</option>
+          <option th:each="i : ${insurances}" th:value="${i.id}"
+                  th:text="${i.name}"></option>
         </select>
       </div>
       <div class="mb-3 row">

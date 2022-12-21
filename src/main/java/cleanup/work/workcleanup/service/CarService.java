@@ -4,13 +4,17 @@ import cleanup.work.workcleanup.controller.form.CarForm;
 import cleanup.work.workcleanup.entity.Car;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
+import cleanup.work.workcleanup.repository.dto.CarDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import static cleanup.work.workcleanup.controller.form.CarForm.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -38,14 +42,22 @@ public class CarService {
         }
     }
 
+    public CarForm findCarById(Long carId) {
+        Optional<Car> findCar = carRepository.findById(carId);
+        if(findCar.isEmpty())
+            throw new NoSuchElementException("해당 ID로 Car를 찾을 수 없습니다.");
+        Car car = findCar.get();
+        return car.toCarForm();
+    }
+
 
 
     private static void updateFormToCar(CarForm form, Car car) {
         car.setCarType(form.getCarType());
         car.setPhoneNumber(form.getPhoneNumber());
         car.setCarNumber(form.getCarNumber());
-        car.setCreateDate(form.getCreateDate());
-        car.setReleaseDate(form.getReleaseDate());
+        car.setCreateDate(localDateToLocalDateTime(form.getCreateDate()));
+        car.setReleaseDate(localDateToLocalDateTime(form.getReleaseDate()));
         car.setVat(form.getVat());
         car.setComment(form.getComment());
         car.setStatus(form.getStatus());
