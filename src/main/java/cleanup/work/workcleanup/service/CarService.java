@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static cleanup.work.workcleanup.controller.form.CarForm.*;
+import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter.localDateToLocalDateTime;
 
 @Service
 @Transactional(readOnly = true)
@@ -52,7 +53,7 @@ public class CarService {
 
 
 
-    private static void updateFormToCar(CarForm form, Car car) {
+    private void updateFormToCar(CarForm form, Car car) {
         car.setCarType(form.getCarType());
         car.setPhoneNumber(form.getPhoneNumber());
         car.setCarNumber(form.getCarNumber());

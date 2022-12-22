@@ -1,5 +1,7 @@
 package cleanup.work.workcleanup.entity;
 
+import cleanup.work.workcleanup.controller.form.CarInsuranceForm;
+import cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -7,6 +9,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+
+import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter.*;
 
 @Entity
 @Getter @Setter
@@ -31,4 +35,16 @@ public class CarInsurance {
     @ManyToOne
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
+
+    public static CarInsurance create(Car car, Insurance insurance, CarInsuranceForm form) {
+        CarInsurance carInsurance = new CarInsurance();
+        carInsurance.setCreateDate(localDateToLocalDateTime(form.getCreateDate()));
+        carInsurance.setPaymentDate(localDateToLocalDateTime(form.getPaymentDate()));
+        carInsurance.setAmount(form.getAmount());
+        carInsurance.setExcess(form.getExcess());
+        carInsurance.setCar(car);
+        carInsurance.setInsurance(insurance);
+
+        return carInsurance;
+    }
 }

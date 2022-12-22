@@ -29,7 +29,7 @@ public class CarController {
     public String list(Model model) {
         List<Car> cars = carRepository.findAllByOrderByCreateDateDesc();
         model.addAttribute("cars", cars);
-        return "page/cars/list";
+        return "page/cars/car-list";
     }
 
     @GetMapping("/new")

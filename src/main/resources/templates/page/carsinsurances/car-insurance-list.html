@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- insurance-car-list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+<!--      <link rel="stylesheet" th:href="@{/css/index.css}" >-->
+</th:block>
+<!-- insurance-car-list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+
+  <h2 style="text-align: center" class="mt-5 mb-5">보험 명세 목록</h2>
+
+
+  <div class="container">
+
+    <table class="table">
+      <thead>
+      <tr>
+        <th scope="col">청구일자</th>
+        <th scope="col">차종</th>
+        <th scope="col">차량번호</th>
+        <th scope="col">청구액</th>
+        <th scope="col">입금일자</th>
+        <th scope="col">지금액</th>
+        <th scope="col">면책금</th>
+        <th scope="col">관리</th>
+      </tr>
+      </thead>
+      <tbody class="table-group-divider">
+      <tr th:each="car : ${cars}" >
+        <th scope="row" th:text="${car.carNumber}">차량번호</th>
+        <td th:text="${car.carType}">차종</td>
+        <td th:text="${car.phoneNumber}">연락처</td>
+        <td th:text="${#temporals.format(car.createDate, 'yyyy-MM-dd')}">입고날짜</td>
+        <td th:text="${#temporals.format(car.releaseDate, 'yyyy-MM-dd')}">출고날짜</td>
+        <td th:text="${car.vat}">부과세</td>
+        <td th:text="${(car.tow) ? 'Y' : 'N'}">견인유무</td>
+        <td><a href="#" th:href="@{/cars/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-primary">변경</button></a></td>
+      </tr>
+      </tbody>
+    </table>
+
+  </div>
+
+</div>
+</html>
+

@@ -4,11 +4,11 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout}">
 
-<!-- list.html 고유 CSS 추가 -->
+<!-- insurance-car-list.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
   <link rel="stylesheet" th:href="@{/css/createCarForm.css}"/>
 </th:block>
-<!-- list.html 고유 스크립트 추가 -->
+<!-- insurance-car-list.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <script type="text/javascript" th:src="@{/js/createCarForm.js}"></script>
 </th:block>
@@ -18,14 +18,14 @@
   <div class="container">
 
     <h2 class="mt-5 mb-5" style="text-align: center">보험 수리비 명세표 추가</h2>
-    <form>
+    <form th:object="${carInsuranceForm}" method="post">
       <div class="mb-3" style="display: flex">
-        <select class="form-select" aria-label="Default select example">
+        <select id="carId" name="carId" class="form-select" aria-label="Default select example">
           <option value="" selected>==차량선택==</option>
           <option th:each="car : ${cars}" th:value="${car.id}"
                   th:text="${car.carNumber + ',   ' + car.carType}"></option>
         </select>
-        <select class="form-select" aria-label="Default select example">
+        <select id="insuranceId" name="insuranceId" class="form-select" aria-label="Default select example">
           <option value="" selected>==보험선택==</option>
           <option th:each="i : ${insurances}" th:value="${i.id}"
                   th:text="${i.name}"></option>
@@ -33,21 +33,21 @@
       </div>
       <div class="mb-3 row">
         <div class="col">
-          <label for="createDate" class="form-label">청구일자</label>
-          <input type="date" class="form-control" id="createDate">
+          <label th:for="createDate" class="form-label">청구일자</label>
+          <input th:field="*{createDate}" type="date" class="form-control">
         </div>
         <div class="col">
-          <label for="paymentDate" class="form-label">입금일자</label>
-          <input type="date" class="form-control" id="paymentDate">
+          <label th:for="paymentDate" class="form-label">입금일자</label>
+          <input th:field="*{paymentDate}" type="date" class="form-control" >
         </div>
       </div>
       <div class="mb-3">
-        <label for="amount" class="form-label">지급액</label>
-        <input type="number" class="form-control" id="amount" placeholder="지급액을 입력하세요">
+        <label th:for="amount" class="form-label">지급액</label>
+        <input th:field="*{amount}" type="number" class="form-control" placeholder="지급액을 입력하세요">
       </div>
       <div class="mb-3">
-        <label for="excess" class="form-label">면책금</label>
-        <input type="number" class="form-control" id="excess" placeholder="면책금을 입력하세요">
+        <label th:for="excess" class="form-label">면책금</label>
+        <input th:field="*{excess}" type="number" class="form-control" placeholder="면책금을 입력하세요">
       </div>
       <div style="text-align: right">
         <button type="submit" class="btn btn-primary">완료</button>

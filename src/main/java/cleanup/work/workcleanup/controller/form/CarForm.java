@@ -1,17 +1,15 @@
 package cleanup.work.workcleanup.controller.form;
 
+import cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter;
 import cleanup.work.workcleanup.entity.Car;
-import cleanup.work.workcleanup.entity.Insurance;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
+
+import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter.*;
 
 @Data
 @NoArgsConstructor
@@ -58,12 +56,5 @@ public class CarForm {
                 .build();
     }
 
-    public static LocalDateTime localDateToLocalDateTime(LocalDate localDate) {
-        return (localDate != null) ? localDate.atStartOfDay() : null;
-    }
-
-    public static LocalDate localDateTimeDateToLocalDate(LocalDateTime localDateTime) {
-        return (localDateTime != null) ? localDateTime.toLocalDate() : null;
-    }
 
 }

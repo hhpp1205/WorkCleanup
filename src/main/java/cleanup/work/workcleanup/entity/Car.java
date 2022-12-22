@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static cleanup.work.workcleanup.controller.form.CarForm.*;
+import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter.localDateTimeDateToLocalDate;
 import static cleanup.work.workcleanup.entity.QCar.car;
 
 @Entity
