@@ -1,6 +1,7 @@
 package cleanup.work.workcleanup.service;
 
 import cleanup.work.workcleanup.controller.form.CarInsuranceForm;
+import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
 import cleanup.work.workcleanup.entity.Car;
 import cleanup.work.workcleanup.entity.CarInsurance;
 import cleanup.work.workcleanup.entity.Insurance;
@@ -8,6 +9,7 @@ import cleanup.work.workcleanup.repository.CarInsuranceRepository;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
+import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -46,5 +48,9 @@ public class CarInsuranceService {
         Insurance insurance = insuranceRepository.findById(insuranceId).orElseThrow(NoSuchElementException::new);
 
         carInsuranceRepository.save(CarInsurance.create(car, insurance, form));
+    }
+
+    public List<CarInsuranceDto> getCarInsuranceList(CarInsuranceSearchCond cond) {
+        return carInsuranceRepository.searchCarInsuranceDto(cond);
     }
 }

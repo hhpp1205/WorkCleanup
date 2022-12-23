@@ -1,6 +1,6 @@
 package cleanup.work.workcleanup.repository.dto;
 
-import lombok.AllArgsConstructor;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,8 +8,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class CarInsuranceListDto {
+public class CarInsuranceDto {
 
     private Long id;
 
@@ -19,4 +18,15 @@ public class CarInsuranceListDto {
     private LocalDateTime paymentDate;  //입금일자
     private Long amount;                //지급액
     private Long excess;                //면책금
+
+    @QueryProjection
+    public CarInsuranceDto(Long id, String carType, String carNumber, LocalDateTime createDate, LocalDateTime paymentDate, Long amount, Long excess) {
+        this.id = id;
+        this.carType = carType;
+        this.carNumber = carNumber;
+        this.createDate = createDate;
+        this.paymentDate = paymentDate;
+        this.amount = amount;
+        this.excess = excess;
+    }
 }

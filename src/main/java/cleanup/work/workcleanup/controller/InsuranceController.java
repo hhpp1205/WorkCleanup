@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/insurances")
+@RequestMapping("/insurance")
 public class InsuranceController {
 
     private final InsuranceService insuranceService;

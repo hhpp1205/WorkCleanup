@@ -1,8 +1,10 @@
 package cleanup.work.workcleanup.controller;
 
 import cleanup.work.workcleanup.controller.form.CarInsuranceForm;
+import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
 import cleanup.work.workcleanup.repository.CarInsuranceRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
+import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
 import cleanup.work.workcleanup.repository.dto.InsuranceDto;
 import cleanup.work.workcleanup.service.CarInsuranceService;
 import cleanup.work.workcleanup.service.CarService;
@@ -18,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Controller
-@RequestMapping("cars-insurances")
+@RequestMapping("car-insurance")
 @RequiredArgsConstructor
 public class CarInsuranceController {
 
     private final CarInsuranceService carInsuranceService;
     private final InsuranceService insuranceService;
-    private final CarInsuranceRepository carInsuranceRepository;
+    private final String path = "page/carinsurance/";
 
 
     @GetMapping("/new")
@@ -34,7 +36,7 @@ public class CarInsuranceController {
         model.addAttribute("cars", cars);
         model.addAttribute("insurances", insurances);
         model.addAttribute("carInsuranceForm", new CarInsuranceForm());
-        return "page/carsinsurances/createCarInsuranceForm";
+        return path + "createCarInsuranceForm";
     }
 
     @PostMapping("/new")
@@ -43,13 +45,15 @@ public class CarInsuranceController {
                                      @RequestParam("insuranceId")Long insuranceId) {
 
         carInsuranceService.createCarInsurance(carId, insuranceId, form);
-        return "redirect:/cars-insurances/list";
+        return "redirect:/car-insurance/list";
     }
 
-//    @GetMapping("/list")
-//    public String list(Model model) {
-//
-//    }
+    @GetMapping("/list")
+    public String list(Model model, CarInsuranceSearchCond cond) {
+        List<CarInsuranceDto> list = carInsuranceService.getCarInsuranceList(cond);
+        model.addAttribute("carInsurances", list);
+        return path + "car-insurance-list";
+    }
 
 
 }
