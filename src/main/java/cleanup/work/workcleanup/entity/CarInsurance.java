@@ -25,6 +25,7 @@ public class CarInsurance {
 
     private LocalDateTime createDate;    //청구일자
     private LocalDateTime paymentDate;  //입금일자
+    private Long bill;                  //청구액
     private Long amount;                //지급액
     private Long excess;                //면책금
 
@@ -40,6 +41,7 @@ public class CarInsurance {
         CarInsurance carInsurance = new CarInsurance();
         carInsurance.setCreateDate(localDateToLocalDateTime(form.getCreateDate()));
         carInsurance.setPaymentDate(localDateToLocalDateTime(form.getPaymentDate()));
+        carInsurance.setBill(form.getBill());
         carInsurance.setAmount(form.getAmount());
         carInsurance.setExcess(form.getExcess());
         carInsurance.setCar(car);

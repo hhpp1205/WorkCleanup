@@ -1,6 +1,7 @@
 package cleanup.work.workcleanup.controller;
 
 import cleanup.work.workcleanup.controller.form.CarForm;
+import cleanup.work.workcleanup.controller.form.CarSearchCond;
 import cleanup.work.workcleanup.entity.Car;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
@@ -9,10 +10,7 @@ import cleanup.work.workcleanup.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,34 +24,42 @@ public class CarController {
 
 
     @GetMapping("/list")
-    public String list(Model model) {
-        List<Car> cars = carRepository.findAllByOrderByCreateDateDesc();
+    public String list(CarSearchCond cond, Model model ) {
+        List<CarDto> cars = carService.getCarList(cond);
         model.addAttribute("cars", cars);
-        return "page/cars/car-list";
+        return "page/car/car-list";
+    }
+
+    @PostMapping("/list")
+    public String searchList(CarSearchCond cond, Model model ) {
+        List<CarDto> cars = carService.getCarList(cond);
+        model.addAttribute("cars", cars);
+        return "page/car/car-list";
     }
 
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("carForm", new CarForm());
-        return "page/cars/createCarForm";
+        return "page/car/createCarForm";
     }
 
     @PostMapping("/new")
     public String create(CarForm form) {
         carService.createCar(form);
-        return "redirect:/cars/list";
+        return "redirect:/car/list";
     }
 
     @GetMapping("{carId}/edit")
     public String updateForm(@PathVariable Long carId, Model model) {
         CarForm carForm = carService.findCarById(carId);
         model.addAttribute("carForm", carForm);
-        return "page/cars/updateCarForm";
+        return "page/car/updateCarForm";
     }
 
     @PostMapping("{carId}/edit")
     public String updateForm(@PathVariable("carId") Long carId, CarForm form) {
         carService.updateCar(carId, form);
-        return "redirect:/cars/list";
+        return "redirect:/car/list";
     }
+
 }

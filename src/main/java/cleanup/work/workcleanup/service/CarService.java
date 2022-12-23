@@ -1,10 +1,13 @@
 package cleanup.work.workcleanup.service;
 
 import cleanup.work.workcleanup.controller.form.CarForm;
+import cleanup.work.workcleanup.controller.form.CarSearchCond;
 import cleanup.work.workcleanup.entity.Car;
+import cleanup.work.workcleanup.repository.CarInsuranceRepository;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
+import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +26,7 @@ import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConver
 public class CarService {
 
     private final CarRepository carRepository;
+    private final CarInsuranceRepository carInsuranceRepository;
 
 
     @Transactional
@@ -72,4 +76,7 @@ public class CarService {
         }
     }
 
+    public List<CarDto> getCarList(CarSearchCond cond) {
+        return carRepository.searchCarDto(cond);
+    }
 }

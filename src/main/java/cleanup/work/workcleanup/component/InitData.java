@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import java.time.LocalDateTime;
 
 @Component
 @RequiredArgsConstructor
@@ -23,12 +24,15 @@ public class InitData {
         car1.setCarNumber("31하 1313");
         car1.setCarType("K5");
         car1.setStatus(false);
+        car1.setCreateDate(LocalDateTime.now().minusDays(3L));
+        car1.setReleaseDate(LocalDateTime.now().minusDays(1L));
         carRepository.save(car1);
 
         Car car2 = new Car();
         car2.setCarNumber("51하 1521");
         car2.setCarType("그랜저");
         car2.setStatus(false);
+        car2.setCreateDate(LocalDateTime.now().minusDays(6L));
         carRepository.save(car2);
 
         Insurance insurance1 = new Insurance();

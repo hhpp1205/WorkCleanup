@@ -42,6 +42,10 @@
         </div>
       </div>
       <div class="mb-3">
+        <label th:for="bill" class="form-label">청구액</label>
+        <input th:field="*{bill}" type="number" class="form-control" placeholder="청구액을 입력하세요">
+      </div>
+      <div class="mb-3">
         <label th:for="amount" class="form-label">지급액</label>
         <input th:field="*{amount}" type="number" class="form-control" placeholder="지급액을 입력하세요">
       </div>

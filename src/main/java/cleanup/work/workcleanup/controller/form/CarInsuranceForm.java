@@ -19,6 +19,7 @@ public class CarInsuranceForm {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentDate;  //입금일자
 
+    private Long bill;                  //청구액
     private Long amount;                //지급액
     private Long excess;                //면책금
 }

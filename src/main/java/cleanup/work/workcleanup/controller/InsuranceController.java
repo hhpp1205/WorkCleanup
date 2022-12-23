@@ -20,7 +20,7 @@ public class InsuranceController {
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("insuranceForm", new InsuranceForm());
-        return "page/insurances/createInsuranceForm";
+        return "page/insurance/createInsuranceForm";
     }
 
     @PostMapping("/new")
