@@ -23,7 +23,7 @@ public class CarInsurance {
     @Column(name = "car_insurance_id")
     private Long id;
 
-    private LocalDateTime createDate;    //청구일자
+    private LocalDateTime billDate;    //청구일자
     private LocalDateTime paymentDate;  //입금일자
     private Long bill;                  //청구액
     private Long amount;                //지급액
@@ -39,7 +39,7 @@ public class CarInsurance {
 
     public static CarInsurance create(Car car, Insurance insurance, CarInsuranceForm form) {
         CarInsurance carInsurance = new CarInsurance();
-        carInsurance.setCreateDate(localDateToLocalDateTime(form.getCreateDate()));
+        carInsurance.setBillDate(localDateToLocalDateTime(form.getBillDate()));
         carInsurance.setPaymentDate(localDateToLocalDateTime(form.getPaymentDate()));
         carInsurance.setBill(form.getBill());
         carInsurance.setAmount(form.getAmount());

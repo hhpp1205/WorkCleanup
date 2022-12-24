@@ -3,6 +3,7 @@ package cleanup.work.workcleanup.service;
 import cleanup.work.workcleanup.controller.form.CarForm;
 import cleanup.work.workcleanup.controller.form.CarSearchCond;
 import cleanup.work.workcleanup.entity.Car;
+import cleanup.work.workcleanup.entity.CarInsurance;
 import cleanup.work.workcleanup.repository.CarInsuranceRepository;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
@@ -77,6 +78,6 @@ public class CarService {
     }
 
     public List<CarDto> getCarList(CarSearchCond cond) {
-        return carRepository.searchCarDto(cond);
+       return carRepository.searchCarDto(cond);
     }
 }

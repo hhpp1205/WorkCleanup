@@ -15,7 +15,7 @@ public class CarInsuranceForm {
     private Long id;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private LocalDate createDate;    //청구일자
+    private LocalDate billDate;    //청구일자
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate paymentDate;  //입금일자
 

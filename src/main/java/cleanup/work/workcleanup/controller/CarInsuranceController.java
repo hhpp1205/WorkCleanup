@@ -2,7 +2,9 @@ package cleanup.work.workcleanup.controller;
 
 import cleanup.work.workcleanup.controller.form.CarInsuranceForm;
 import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
+import cleanup.work.workcleanup.entity.Insurance;
 import cleanup.work.workcleanup.repository.CarInsuranceRepository;
+import cleanup.work.workcleanup.repository.InsuranceRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
 import cleanup.work.workcleanup.repository.dto.InsuranceDto;
@@ -26,6 +28,7 @@ public class CarInsuranceController {
 
     private final CarInsuranceService carInsuranceService;
     private final InsuranceService insuranceService;
+    private final InsuranceRepository insuranceRepository;
     private final String path = "page/carinsurance/";
 
 
@@ -50,8 +53,11 @@ public class CarInsuranceController {
 
     @GetMapping("/list")
     public String list(Model model, CarInsuranceSearchCond cond) {
-        List<CarInsuranceDto> list = carInsuranceService.getCarInsuranceList(cond);
-        model.addAttribute("carInsurances", list);
+        List<CarInsuranceDto> carInsuranceList = carInsuranceService.getCarInsuranceList(cond);
+        model.addAttribute("carInsuranceList", carInsuranceList);
+
+        List<Insurance> insuranceList = insuranceRepository.getInsuranceList();
+        model.addAttribute("insuranceList", insuranceList);
         return path + "car-insurance-list";
     }
 

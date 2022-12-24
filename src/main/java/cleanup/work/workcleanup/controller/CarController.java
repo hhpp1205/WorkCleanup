@@ -30,13 +30,6 @@ public class CarController {
         return "page/car/car-list";
     }
 
-    @PostMapping("/list")
-    public String searchList(CarSearchCond cond, Model model ) {
-        List<CarDto> cars = carService.getCarList(cond);
-        model.addAttribute("cars", cars);
-        return "page/car/car-list";
-    }
-
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("carForm", new CarForm());

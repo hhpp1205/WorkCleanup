@@ -21,9 +21,51 @@
 
   <div class="container">
 
+    <form action="/car-insurance/list"  method="get" style="text-align: right">
+
+      <div style="display: flex; justify-content: flex-end;" class="mb-3" >
+        <div>
+          <label for="carType" class="form-label">차종</label>
+          <input  id="carType" name="carType" type="text" class="form-control" placeholder="차량번호를 입력하세요">
+        </div>
+        <div>
+          <label for="carNumber" class="form-label">차량번호</label>
+          <input  id="carNumber" name="carNumber" type="text" class="form-control"  placeholder="차량번호를 입력하세요">
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end;" class="mb-5" >
+        <div>
+          <label for="billDateStart" class="form-label">청구 시작날짜</label>
+          <input id="billDateStart" name="billDateStart" type="date" class="form-control">
+        </div>
+        <div style="margin-right: 30px">
+          <label for="billDateEnd" class="form-label">끝날짜</label>
+          <input id="billDateEnd" name="billDateEnd" type="date" class="form-control">
+        </div>
+        <div>
+          <label for="paymentDateStart" class="form-label">입금 시작날짜</label>
+          <input id="paymentDateStart" name="paymentDateStart" type="date" class="form-control">
+        </div>
+        <div>
+          <label for="paymentDateEnd" class="form-label">끝날짜</label>
+          <input id="paymentDateEnd" name="paymentDateEnd" type="date" class="form-control">
+        </div>
+        <div>
+          <label for="insuranceId" class="form-label">보험 종류</label>
+          <select id="insuranceId" name="insuranceId" class="form-select" aria-label="Default select example" style="width: 200px;">
+            <option value="" selected>==보험종류==</option>
+            <option th:each="insurance : ${insuranceList}" th:value="${insurance.id}" th:text="${insurance.name}">보험명</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+
     <table class="table">
       <thead>
       <tr>
+        <th scope="col">보험명</th>
         <th scope="col">청구일자</th>
         <th scope="col">차종</th>
         <th scope="col">차량번호</th>
@@ -35,12 +77,13 @@
       </tr>
       </thead>
       <tbody class="table-group-divider">
-      <tr th:each="carInsurance : ${carInsurances}" >
-        <td th:text="${#temporals.format(carInsurance.createDate, 'yyyy-MM-dd')}">청구일자</td>
+      <tr th:each="carInsurance : ${carInsuranceList}" >
+        <td th:text="${carInsurance.insuranceName}">보험명</td>
+        <td th:text="${#temporals.format(carInsurance.billDate, 'yyyy-MM-dd')}">청구일자</td>
         <td th:text="${carInsurance.carType}">차종</td>
         <th th:text="${carInsurance.carNumber}">차량번호</th>
-        <th th:text="${carInsurance.carNumber}">차량번호</th>
         <th th:text="${carInsurance.bill}">청구액</th>
+        <th th:text="${#temporals.format(carInsurance.paymentDate, 'yyyy-MM-dd')}">입금일자</th>
         <td th:text="${carInsurance.amount}">지급액</td>
         <td th:text="${carInsurance.excess}">면책금</td>
         <td><a href="#" ><button type="button" class="btn btn-primary">변경</button></a></td>
