@@ -29,11 +29,11 @@ public class CarInsurance {
     private Long amount;                //지급액
     private Long excess;                //면책금
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 
@@ -48,5 +48,18 @@ public class CarInsurance {
         carInsurance.setInsurance(insurance);
 
         return carInsurance;
+    }
+
+    public CarInsuranceForm toCarInsuranceForm() {
+        return CarInsuranceForm.builder()
+                .id(id)
+                .billDate(localDateTimeDateToLocalDate(billDate))
+                .paymentDate(localDateTimeDateToLocalDate(paymentDate))
+                .bill(bill)
+                .amount(amount)
+                .excess(excess)
+                .carId(car.getId())
+                .insuranceId(insurance.getId())
+                .build();
     }
 }

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- insurance-car-list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/createCarForm.css}"/>
+</th:block>
+<!-- insurance-car-list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+  <script type="text/javascript" th:src="@{/js/createCarForm.js}"></script>
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <div class="container">
+
+    <h2 class="mt-5 mb-5" style="text-align: center">보험 수리비 명세표 추가</h2>
+    <form th:object="${carInsuranceForm}" method="post">
+      <div class="mb-3" style="display: flex">
+        <select id="carId" name="carId" class="form-select" aria-label="Default select example">
+          <option value="" >==차량선택==</option>
+          <option th:each="car : ${cars}" th:value="${car.id}"
+                  th:text="${car.carNumber + ',   ' + car.carType}" th:selected="${carInsuranceForm.carId} == ${car.id}"></option>
+        </select>
+        <select id="insuranceId" name="insuranceId" class="form-select" aria-label="Default select example">
+          <option value="" >==보험선택==</option>
+          <option th:each="i : ${insurances}" th:value="${i.id}"
+                  th:text="${i.name}" th:selected="${carInsuranceForm.insuranceId} == ${i.id}"></option>
+        </select>
+      </div>
+      <div class="mb-3 row">
+        <div class="col">
+          <label th:for="billDate" class="form-label">청구일자</label>
+          <input th:field="*{billDate}" type="date" class="form-control">
+        </div>
+        <div class="col">
+          <label th:for="paymentDate" class="form-label">입금일자</label>
+          <input th:field="*{paymentDate}" type="date" class="form-control" >
+        </div>
+      </div>
+      <div class="mb-3">
+        <label th:for="bill" class="form-label">청구액</label>
+        <input th:field="*{bill}" type="number" class="form-control" placeholder="청구액을 입력하세요">
+      </div>
+      <div class="mb-3">
+        <label th:for="amount" class="form-label">지급액</label>
+        <input th:field="*{amount}" type="number" class="form-control" placeholder="지급액을 입력하세요">
+      </div>
+      <div class="mb-3">
+        <label th:for="excess" class="form-label">면책금</label>
+        <input th:field="*{excess}" type="number" class="form-control" placeholder="면책금을 입력하세요">
+      </div>
+      <div style="text-align: right">
+        <button type="submit" class="btn btn-primary">완료</button>
+        <button type="button" class="btn btn-danger">취소</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+</html>

@@ -5,6 +5,7 @@ spring:
     password:
     driver-class-name: org.h2.Driver
 
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -15,5 +16,10 @@ spring:
         default_batch_fetch_size: 100
     database: h2
 server:
-  port: 8080
+  port: 9090
+
+decorator:
+  datasource:
+    p6spy:
+      enable-logging: true
 

@@ -86,7 +86,7 @@
         <th th:text="${#temporals.format(carInsurance.paymentDate, 'yyyy-MM-dd')}">입금일자</th>
         <td th:text="${carInsurance.amount}">지급액</td>
         <td th:text="${carInsurance.excess}">면책금</td>
-        <td><a href="#" ><button type="button" class="btn btn-primary">변경</button></a></td>
+        <td><a th:href="@{/car-insurance/{id}/edit (id=${carInsurance.id})}" ><button type="button" class="btn btn-primary">변경</button></a></td>
       </tr>
       </tbody>
     </table>

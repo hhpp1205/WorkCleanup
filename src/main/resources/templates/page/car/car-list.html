@@ -80,7 +80,7 @@
         <td th:text="${car.vat}">부과세</td>
         <td th:text="${(car.tow) ? 'Y' : 'N'}">견인유무</td>
         <td >보험</td>
-        <td><a href="#" th:href="@{/cars/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-primary">변경</button></a></td>
+        <td><a href="#" th:href="@{/car/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-primary">변경</button></a></td>
       </tr>
       </tbody>
     </table>

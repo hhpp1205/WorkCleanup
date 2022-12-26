@@ -16,8 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+import java.util.Optional;
 
+import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter.*;
 import static java.util.stream.Collectors.*;
 
 
@@ -52,5 +53,35 @@ public class CarInsuranceService {
 
     public List<CarInsuranceDto> getCarInsuranceList(CarInsuranceSearchCond cond) {
         return carInsuranceRepository.searchCarInsuranceDto(cond);
+    }
+
+    public CarInsuranceForm findByCarInsuranceId(Long carInsuranceId) {
+        Optional<CarInsurance> findCarInsurance = carInsuranceRepository.findById(carInsuranceId);
+
+        if(findCarInsurance.isEmpty())
+            throw new NoSuchElementException("해당 ID로 CarInsurance를 찾을 수 없습니다.");
+
+        CarInsurance carInsurance = findCarInsurance.get();
+        return carInsurance.toCarInsuranceForm();
+
+    }
+
+    @Transactional
+    public void updateCarInsurance(Long carInsuranceId, CarInsuranceForm carInsuranceForm) {
+        CarInsurance carInsurance = carInsuranceRepository.findByIdFetch(carInsuranceId).orElseThrow(NoSuchElementException::new);
+        updateFormToCarInsurance(carInsurance, carInsuranceForm);
+    }
+
+    private void updateFormToCarInsurance(CarInsurance carInsurance, CarInsuranceForm form) {
+        Car findCar = carRepository.findById(form.getCarId()).orElseThrow(NoSuchElementException::new);
+        Insurance findInsurance = insuranceRepository.findById(form.getInsuranceId()).orElseThrow(NoSuchElementException::new);
+
+        carInsurance.setBillDate(localDateToLocalDateTime(form.getBillDate()));
+        carInsurance.setPaymentDate(localDateToLocalDateTime(form.getPaymentDate()));
+        carInsurance.setBill(form.getBill());
+        carInsurance.setAmount(form.getAmount());
+        carInsurance.setExcess(form.getExcess());
+        carInsurance.setCar(findCar);
+        carInsurance.setInsurance(findInsurance);
     }
 }

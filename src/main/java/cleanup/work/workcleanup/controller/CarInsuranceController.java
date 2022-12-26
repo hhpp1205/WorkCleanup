@@ -14,10 +14,7 @@ import cleanup.work.workcleanup.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -59,6 +56,28 @@ public class CarInsuranceController {
         List<Insurance> insuranceList = insuranceRepository.getInsuranceList();
         model.addAttribute("insuranceList", insuranceList);
         return path + "car-insurance-list";
+    }
+
+    @GetMapping("{carInsuranceId}/edit")
+    public String updateForm(@PathVariable Long carInsuranceId, Model model) {
+        CarInsuranceForm carInsuranceForm = carInsuranceService.findByCarInsuranceId(carInsuranceId);
+        model.addAttribute("carInsuranceForm", carInsuranceForm);
+
+        List<CarDto> cars = carInsuranceService.getCarList();
+        List<InsuranceDto> insurances = insuranceService.getInsuranceList();
+        model.addAttribute("cars", cars);
+        model.addAttribute("insurances", insurances);
+
+        return path + "updateCarInsuranceForm";
+    }
+
+    @PostMapping("{carInsuranceId}/edit")
+    public String updateCarInsurance(@PathVariable Long carInsuranceId, CarInsuranceForm carInsuranceForm) {
+        carInsuranceService.updateCarInsurance(carInsuranceId, carInsuranceForm);
+        int i = 30;
+
+
+        return "redirect:/car-insurance/list";
     }
 
 
