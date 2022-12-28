@@ -81,7 +81,7 @@ public class CarInsuranceService {
         carInsurance.setBill(form.getBill());
         carInsurance.setAmount(form.getAmount());
         carInsurance.setExcess(form.getExcess());
-        carInsurance.setCar(findCar);
+//        carInsurance.setCar(findCar);
         carInsurance.setInsurance(findInsurance);
     }
 }

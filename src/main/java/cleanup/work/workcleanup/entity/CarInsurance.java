@@ -29,11 +29,11 @@ public class CarInsurance {
     private Long amount;                //지급액
     private Long excess;                //면책금
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     private Car car;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 

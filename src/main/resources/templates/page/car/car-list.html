@@ -56,30 +56,38 @@
       <button type="submit" class="btn btn-primary">검색</button>
     </form>
 
-    <table class="table">
+    <table class="table table-bordered">
       <thead>
       <tr>
-        <th scope="col">차량번호</th>
-        <th scope="col">차종</th>
-        <th scope="col">연락처</th>
         <th scope="col">입고날짜</th>
-        <th scope="col">출고날짜</th>
-        <th scope="col">부과세</th>
+        <th scope="col">차종</th>
+        <th scope="col">차량번호</th>
+        <th scope="col">보험1</th>
+        <th scope="col">보험2</th>
+        <th scope="col">연락처</th>
+        <th scope="col">적요</th>
         <th scope="col">견인유무</th>
-        <th scope="col">보험</th>
+        <th scope="col">부과세</th>
+        <th scope="col">면책금</th>
+        <th scope="col">출고날짜</th>
+        <th scope="col">입금날짜</th>
         <th scope="col">관리</th>
       </tr>
       </thead>
       <tbody class="table-group-divider">
       <tr th:each="car : ${cars}" >
-        <th scope="row" th:text="${car.carNumber}">차량번호</th>
-        <td th:text="${car.carType}">차종</td>
-        <td th:text="${car.phoneNumber}">연락처</td>
         <td th:text="${#temporals.format(car.createDate, 'yyyy-MM-dd')}">입고날짜</td>
-        <td th:text="${#temporals.format(car.releaseDate, 'yyyy-MM-dd')}">출고날짜</td>
-        <td th:text="${car.vat}">부과세</td>
+        <td th:text="${car.carType}">차종</td>
+        <th scope="row" th:text="${car.carNumber}">차량번호</th>
+        <td >보험1</td>
+        <td >보험2</td>
+        <td th:text="${car.phoneNumber}">연락처</td>
+        <td>적요</td>
         <td th:text="${(car.tow) ? 'Y' : 'N'}">견인유무</td>
-        <td >보험</td>
+        <td th:text="${car.vat}">부과세</td>
+        <td th:text="${car.vat}">면책금</td>
+        <td th:text="${#temporals.format(car.releaseDate, 'yyyy-MM-dd')}">출고날짜</td>
+        <td>입금날짜</td>
         <td><a href="#" th:href="@{/car/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-primary">변경</button></a></td>
       </tr>
       </tbody>
