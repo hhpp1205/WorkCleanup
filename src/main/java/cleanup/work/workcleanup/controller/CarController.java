@@ -20,7 +20,6 @@ import java.util.List;
 public class CarController {
 
     private final CarService carService;
-    private final CarRepository carRepository;
 
 
     @GetMapping("/list")

@@ -6,7 +6,7 @@
 
 <!-- car-insurance-car-list.html 고유 CSS 추가 -->
 <th:block layout:fragment="css">
-<!--      <link rel="stylesheet" th:href="@{/css/index.css}" >-->
+<link rel="stylesheet" th:href="@{/css/car-list.css}" >
 </th:block>
 <!-- car-insurance-car-list.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
@@ -62,8 +62,7 @@
         <th scope="col">입고날짜</th>
         <th scope="col">차종</th>
         <th scope="col">차량번호</th>
-        <th scope="col">보험1</th>
-        <th scope="col">보험2</th>
+        <th scope="col">보험</th>
         <th scope="col">연락처</th>
         <th scope="col">적요</th>
         <th scope="col">견인유무</th>
@@ -79,11 +78,12 @@
         <td th:text="${#temporals.format(car.createDate, 'yyyy-MM-dd')}">입고날짜</td>
         <td th:text="${car.carType}">차종</td>
         <th scope="row" th:text="${car.carNumber}">차량번호</th>
-        <td >보험1</td>
-        <td >보험2</td>
+        <td class="slash">
+          <div th:each="insuranceName : ${car.insuranceNames}" th:text="${insuranceName}">보험</div>
+        </td>
         <td th:text="${car.phoneNumber}">연락처</td>
         <td>적요</td>
-        <td th:text="${(car.tow) ? 'Y' : 'N'}">견인유무</td>
+        <td th:text="${car.tow}">견인유무</td>
         <td th:text="${car.vat}">부과세</td>
         <td th:text="${car.vat}">면책금</td>
         <td th:text="${#temporals.format(car.releaseDate, 'yyyy-MM-dd')}">출고날짜</td>

@@ -5,7 +5,9 @@ import cleanup.work.workcleanup.controller.form.CarSearchCond;
 import cleanup.work.workcleanup.entity.CarInsurance;
 import cleanup.work.workcleanup.repository.custom.CarInsuranceRepositoryCustom;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
+import cleanup.work.workcleanup.repository.dto.CarInsuranceMatching;
 import cleanup.work.workcleanup.repository.dto.QCarInsuranceDto;
+import cleanup.work.workcleanup.repository.dto.QCarInsuranceMatching;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -62,6 +64,18 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
                 .fetch();
     }
 
+    @Override
+    public List<CarInsuranceMatching> findInsuranceNameByCarIds(List<Long> carIds) {
+        return queryFactory
+                .select(new QCarInsuranceMatching(car.id, insurance.name))
+                .from(carInsurance)
+                .join(carInsurance.car, car)
+                .join(carInsurance.insurance, insurance)
+                .where(carInsurance.car.id.in(carIds))
+                .fetch();
+    }
+
+//    ================================== 검색 조건 ==================================
     private BooleanExpression insuranceIdEq(Long insuranceId) {
         return (insuranceId != null) ? insurance.id.eq(insuranceId) : null;
     }

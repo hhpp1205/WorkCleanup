@@ -26,10 +26,10 @@ public class CarForm {
     private Long vat;                   //부과세
     private String comment;             //적요
     private Boolean status;              //사장확인
-    private Boolean tow;                 //견인 유무
+    private Long tow;                 //견인 유무
 
     @Builder
-    public CarForm(Long id, String carType, String phoneNumber, String carNumber, LocalDate createDate, LocalDate releaseDate, Long vat, String comment, Boolean status, Boolean tow) {
+    public CarForm(Long id, String carType, String phoneNumber, String carNumber, LocalDate createDate, LocalDate releaseDate, Long vat, String comment, Boolean status, Long tow) {
         this.id = id;
         this.carType = carType;
         this.phoneNumber = phoneNumber;

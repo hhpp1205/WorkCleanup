@@ -30,13 +30,13 @@ public class Car {
     private Long vat;                   //부과세
     private String comment;             //적요
     private Boolean status;              //사장확인
-    private Boolean tow;                 //견인 유무
+    private Long tow;                 //견인 유무
 
     @OneToMany(mappedBy = "car")
     private List<CarInsurance> carInsurances = new ArrayList<>();  // 보험 1개일수도 2개일수도 있음
 
     @Builder
-    public Car(String carType, String phoneNumber, String carNumber, LocalDateTime createDate, LocalDateTime releaseDate, Long vat, String comment, Boolean status, Boolean tow) {
+    public Car(String carType, String phoneNumber, String carNumber, LocalDateTime createDate, LocalDateTime releaseDate, Long vat, String comment, Boolean status, Long tow) {
         this.carType = carType;
         this.phoneNumber = phoneNumber;
         this.carNumber = carNumber;

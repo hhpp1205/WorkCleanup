@@ -9,6 +9,7 @@ import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.InsuranceRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
+import cleanup.work.workcleanup.repository.dto.CarInsuranceMatching;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static cleanup.work.workcleanup.controller.form.CarForm.*;
 import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConverter.localDateToLocalDateTime;
@@ -78,6 +81,24 @@ public class CarService {
     }
 
     public List<CarDto> getCarList(CarSearchCond cond) {
-       return carRepository.searchCarDto(cond);
+
+        List<CarDto> carDtos = carRepository.searchCarDto(cond);
+
+        // 조회된 Car들의 Id 추출
+        List<Long> carIds = carDtos.stream()
+                .map(c -> c.getId())
+                .collect(Collectors.toList());
+
+        List<CarInsuranceMatching> insuranceNames = carInsuranceRepository.findInsuranceNameByCarIds(carIds);
+
+        for (CarDto carDto : carDtos) {
+            for (CarInsuranceMatching insuranceName : insuranceNames) {
+                if (carDto.getId() == insuranceName.getCarId()) {
+                    carDto.getInsuranceNames().add(insuranceName.getInsuranceName());
+                }
+            }
+        }
+
+        return carDtos;
     }
 }

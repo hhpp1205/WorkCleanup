@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -23,9 +24,9 @@ public class CarDto {
     private Long vat;                   //부과세
     private String comment;             //적요
     private Boolean status;              //사장확인
-    private Boolean tow;                 //견인 유무
+    private Long tow;                 //견인 유무
 
-    private List<Insurance> insurances; //보험리스트
+    private List<String> insuranceNames = new ArrayList<>(); //보험이름리스트
 
     public CarDto(Long id, String carType, String carNumber) {
         this.id = id;
@@ -34,7 +35,7 @@ public class CarDto {
     }
 
     @QueryProjection
-    public CarDto(Long id, String carType, String phoneNumber, String carNumber, LocalDateTime createDate, LocalDateTime releaseDate, Long vat, String comment, Boolean status, Boolean tow) {
+    public CarDto(Long id, String carType, String phoneNumber, String carNumber, LocalDateTime createDate, LocalDateTime releaseDate, Long vat, String comment, Boolean status, Long tow) {
         this.id = id;
         this.carType = carType;
         this.phoneNumber = phoneNumber;
