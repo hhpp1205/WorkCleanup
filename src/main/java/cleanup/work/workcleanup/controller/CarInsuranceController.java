@@ -39,6 +39,17 @@ public class CarInsuranceController {
         return path + "createCarInsuranceForm";
     }
 
+    @GetMapping("/{carId}/new")
+    public String carInsuranceFormByCarId( @PathVariable String carId, Model model) {
+        List<CarDto> cars = carInsuranceService.getCarList();
+        List<InsuranceDto> insurances = insuranceService.getInsuranceList();
+        model.addAttribute("carId", carId);
+        model.addAttribute("cars", cars);
+        model.addAttribute("insurances", insurances);
+        model.addAttribute("carInsuranceForm", new CarInsuranceForm());
+        return path + "createCarInsuranceForm";
+    }
+
     @PostMapping("/new")
     public String createCarInsurance(CarInsuranceForm form,
                                      @RequestParam("carId") Long carId,
@@ -74,8 +85,6 @@ public class CarInsuranceController {
     @PostMapping("{carInsuranceId}/edit")
     public String updateCarInsurance(@PathVariable Long carInsuranceId, CarInsuranceForm carInsuranceForm) {
         carInsuranceService.updateCarInsurance(carInsuranceId, carInsuranceForm);
-        int i = 30;
-
 
         return "redirect:/car-insurance/list";
     }

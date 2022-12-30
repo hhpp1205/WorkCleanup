@@ -14,5 +14,5 @@ public interface CarInsuranceRepositoryCustom {
 
     List<CarInsurance> getCarInsuranceList(CarSearchCond cond);
 
-    List<CarInsuranceMatching> findInsuranceNameByCarIds(@Param("carIds") List<Long> carIds);
+    List<CarInsuranceDto> findInsuranceNameByCarIds(@Param("carIds") List<Long> carIds);
 }

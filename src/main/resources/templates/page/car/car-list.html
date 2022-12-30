@@ -79,7 +79,7 @@
         <td th:text="${car.carType}">차종</td>
         <th scope="row" th:text="${car.carNumber}">차량번호</th>
         <td class="slash">
-          <div th:each="insuranceName : ${car.insuranceNames}" th:text="${insuranceName}">보험</div>
+          <div th:each="ciDto : ${car.carInsuranceDtos}" th:text="${ciDto.insuranceName}">보험</div>
         </td>
         <td th:text="${car.phoneNumber}">연락처</td>
         <td>적요</td>
@@ -87,8 +87,13 @@
         <td th:text="${car.vat}">부과세</td>
         <td th:text="${car.vat}">면책금</td>
         <td th:text="${#temporals.format(car.releaseDate, 'yyyy-MM-dd')}">출고날짜</td>
-        <td>입금날짜</td>
-        <td><a href="#" th:href="@{/car/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-primary">변경</button></a></td>
+        <td >
+          <div th:each="ciDto : ${car.carInsuranceDtos}" th:text="${#temporals.format(ciDto.paymentDate, 'yyyy-MM-dd')}"></div>
+        </td>
+        <td>
+          <a  th:href="@{/car/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-sm btn-primary">차량변경</button></a>
+          <a th:href="@{/car-insurance/{id}/new (id=${car.id})}"><button type="button" class="btn btn-sm btn-warning">보험추가</button></a>
+        </td>
       </tr>
       </tbody>
     </table>

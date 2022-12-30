@@ -65,9 +65,9 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
     }
 
     @Override
-    public List<CarInsuranceMatching> findInsuranceNameByCarIds(List<Long> carIds) {
+    public List<CarInsuranceDto> findInsuranceNameByCarIds(List<Long> carIds) {
         return queryFactory
-                .select(new QCarInsuranceMatching(car.id, insurance.name))
+                .select(new QCarInsuranceDto(car.id, carInsurance.paymentDate, insurance.name ))
                 .from(carInsurance)
                 .join(carInsurance.car, car)
                 .join(carInsurance.insurance, insurance)

@@ -23,7 +23,8 @@
         <select id="carId" name="carId" class="form-select" aria-label="Default select example">
           <option value="" >==차량선택==</option>
           <option th:each="car : ${cars}" th:value="${car.id}"
-                  th:text="${car.carNumber + ',   ' + car.carType}" th:selected="${carInsuranceForm.carId} == ${car.id}"></option>
+                  th:text="${car.carType + ',   ' + car.carNumber}"
+                  th:selected="${carInsuranceForm.carId} == ${car.id}"></option>
         </select>
         <select id="insuranceId" name="insuranceId" class="form-select" aria-label="Default select example">
           <option value="" >==보험선택==</option>

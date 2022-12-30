@@ -12,6 +12,7 @@ public class CarInsuranceDto {
 
     private Long id;
 
+    private Long carId;                  //carId
     private String carType;             //차량종류
     private String carNumber;             //차량번호
     private LocalDateTime billDate;    //청구일자
@@ -31,6 +32,12 @@ public class CarInsuranceDto {
         this.bill = bill;
         this.amount = amount;
         this.excess = excess;
+        this.insuranceName = insuranceName;
+    }
+    @QueryProjection
+    public CarInsuranceDto(Long carId, LocalDateTime paymentDate, String insuranceName) {
+        this.carId = carId;
+        this.paymentDate = paymentDate;
         this.insuranceName = insuranceName;
     }
 }
