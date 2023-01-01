@@ -56,7 +56,7 @@ public class CarInsuranceController {
                                      @RequestParam("insuranceId")Long insuranceId) {
 
         carInsuranceService.createCarInsurance(carId, insuranceId, form);
-        return "redirect:/car-insurance/list";
+        return "redirect:/car/list";
     }
 
     @GetMapping("/list")

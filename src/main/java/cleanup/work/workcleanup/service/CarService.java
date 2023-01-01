@@ -7,7 +7,6 @@ import cleanup.work.workcleanup.repository.CarInsuranceRepository;
 import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
-import cleanup.work.workcleanup.repository.dto.CarInsuranceMatching;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -86,13 +85,13 @@ public class CarService {
         List<CarInsuranceDto> carInsuranceDtos = carInsuranceRepository.findInsuranceNameByCarIds(carIds);
 
         carDtos.stream().forEach(
-                carDto -> carDto.setCarInsuranceDtos(matchingByCarId(carInsuranceDtos, carDto))
+                carDto -> carDto.setCarInsuranceDtos(matchingCarInsuranceDto(carInsuranceDtos, carDto))
         );
 
         return carDtos;
     }
 
-    private static List<CarInsuranceDto> matchingByCarId(List<CarInsuranceDto> carInsuranceDtos, CarDto carDto) {
+    private static List<CarInsuranceDto> matchingCarInsuranceDto(List<CarInsuranceDto> carInsuranceDtos, CarDto carDto) {
         return carInsuranceDtos.stream()
                 .filter(ci -> carDto.getId() == ci.getCarId())
                 .map(ci -> new CarInsuranceDto(ci.getCarId(), ci.getPaymentDate(), ci.getInsuranceName()))

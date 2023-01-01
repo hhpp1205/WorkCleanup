@@ -20,7 +20,7 @@
 
   <div class="container">
 
-    <form action="/car/list"  method="get" style="text-align: right">
+    <form class="mb-3" action="/car/list"  method="get" style="text-align: right">
       <div style="display: flex; justify-content: flex-end;" class="mb-3" >
         <div>
           <label for="carType" class="form-label">차종</label>
@@ -82,7 +82,9 @@
           <div th:each="ciDto : ${car.carInsuranceDtos}" th:text="${ciDto.insuranceName}">보험</div>
         </td>
         <td th:text="${car.phoneNumber}">연락처</td>
-        <td>적요</td>
+        <td>
+          <button th:if="${car.comment != null}" type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" th:data-bs-target="'#exampleModal' + ${car.id} ">보기</button>
+        </td>
         <td th:text="${car.tow}">견인유무</td>
         <td th:text="${car.vat}">부과세</td>
         <td th:text="${car.vat}">면책금</td>
@@ -99,6 +101,37 @@
     </table>
 
   </div>
+
+  <th:block th:each="car : ${cars}">
+    <!-- Modal -->
+    <div class="modal fade" th:id="exampleModal + ${car.id}" tabindex="-1" th:aria-labelledby="exampleModalLabel + ${car.id}" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">적요</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body" th:text="${car.comment}">
+            적요내용
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </th:block>
+
+  <!--pagination-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+      </ul>
+    </nav>
 
 </div>
 </html>
