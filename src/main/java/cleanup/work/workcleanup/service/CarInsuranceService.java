@@ -37,7 +37,7 @@ public class CarInsuranceService {
     private final CarInsuranceRepository carInsuranceRepository;
 
     public List<CarDto> getCarList() {
-        List<Car> carList = carRepository.findCarByStatusFalse();
+        List<Car> carList = carRepository.findCarByReleaseDateIsNull();
 
         return carList.stream()
                 .map(c -> new CarDto(c.getId(), c.getCarType(), c.getCarNumber()))

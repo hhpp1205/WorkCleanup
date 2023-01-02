@@ -1,6 +1,5 @@
 package cleanup.work.workcleanup.repository.dto;
 
-import cleanup.work.workcleanup.entity.Insurance;
 import com.querydsl.core.annotations.QueryProjection;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,7 +25,7 @@ public class CarDto {
     private Boolean status;              //사장확인
     private Long tow;                 //견인 유무
 
-    private List<CarInsuranceDto> carInsuranceDtos;
+    private List<CarInsuranceDto> carInsuranceDtos = new ArrayList<>();
 
 
     public CarDto(Long id, String carType, String carNumber) {

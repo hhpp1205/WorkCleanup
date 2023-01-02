@@ -83,20 +83,17 @@ public class CarService {
                 .map(c -> c.getId())
                 .collect(Collectors.toList());
 
-        List<CarInsuranceDto> carInsuranceDtos = carInsuranceRepository.findInsuranceNameByCarIds(carIds);
+        List<CarInsuranceDto> carInsuranceDtos = carInsuranceRepository.findCarInsuranceDtoByCarIds(carIds);
 
-        carDtos.stream().forEach(
-                carDto -> carDto.setCarInsuranceDtos(matchingCarInsuranceDto(carInsuranceDtos, carDto))
-        );
+        for (CarDto cd : carDtos) {
+            for (CarInsuranceDto ci : carInsuranceDtos) {
+                if (cd.getId().equals(ci.getCarId())) {
+                    cd.getCarInsuranceDtos().add(ci);
+                }
+            }
+        }
 
         return carDtos;
-    }
-
-    private static List<CarInsuranceDto> matchingCarInsuranceDto(List<CarInsuranceDto> carInsuranceDtos, CarDto carDto) {
-        return carInsuranceDtos.stream()
-                .filter(ci -> carDto.getId() == ci.getCarId())
-                .map(ci -> new CarInsuranceDto(ci.getCarId(), ci.getPaymentDate(), ci.getInsuranceName()))
-                .toList();
     }
 
 }

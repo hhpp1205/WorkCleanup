@@ -4,7 +4,6 @@ import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
 import cleanup.work.workcleanup.controller.form.CarSearchCond;
 import cleanup.work.workcleanup.entity.CarInsurance;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
-import cleanup.work.workcleanup.repository.dto.CarInsuranceMatching;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
@@ -14,5 +13,5 @@ public interface CarInsuranceRepositoryCustom {
 
     List<CarInsurance> getCarInsuranceList(CarSearchCond cond);
 
-    List<CarInsuranceDto> findInsuranceNameByCarIds(@Param("carIds") List<Long> carIds);
+    List<CarInsuranceDto> findCarInsuranceDtoByCarIds(@Param("carIds") List<Long> carIds);
 }
