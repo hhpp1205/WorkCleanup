@@ -8,6 +8,7 @@ import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.service.CarService;
 import cleanup.work.workcleanup.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,12 +21,24 @@ import java.util.List;
 public class CarController {
 
     private final CarService carService;
+    private final CarRepository carRepository;
 
 
     @GetMapping("/list")
-    public String list(CarSearchCond cond, Model model ) {
-        List<CarDto> cars = carService.getCarList(cond);
+    public String list(CarSearchCond cond, Model model, Pageable pageable) {
+        List<CarDto> cars = carService.getCarList(cond, pageable);
+        Long totalCount = carRepository.getCount(cond);
+
+        int endPage = (int) Math.ceil((pageable.getPageNumber() + 1) / 5.0) * 5;
+        int beginPage = endPage - 4;
+        int realEndPage = (int) (Math.ceil((double) totalCount) / pageable.getPageSize());
+        if (endPage > realEndPage) endPage = realEndPage;
+
         model.addAttribute("cars", cars);
+        model.addAttribute("cond", cond);
+        model.addAttribute("endPage", endPage);
+        model.addAttribute("beginPage", beginPage);
+        model.addAttribute("pageNumber", pageable.getPageNumber());
         return "page/car/car-list";
     }
 

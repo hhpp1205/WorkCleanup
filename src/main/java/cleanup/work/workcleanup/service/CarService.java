@@ -8,6 +8,7 @@ import cleanup.work.workcleanup.repository.CarRepository;
 import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,9 +75,9 @@ public class CarService {
         }
     }
 
-    public List<CarDto> getCarList(CarSearchCond cond) {
+    public List<CarDto> getCarList(CarSearchCond cond, Pageable pageable) {
 
-        List<CarDto> carDtos = carRepository.searchCarDto(cond);
+        List<CarDto> carDtos = carRepository.searchCarDto(cond, pageable);
 
         List<Long> carIds = carDtos.stream()
                 .map(c -> c.getId())

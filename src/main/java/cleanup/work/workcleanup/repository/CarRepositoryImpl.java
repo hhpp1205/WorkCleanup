@@ -7,6 +7,7 @@ import cleanup.work.workcleanup.repository.dto.QCarDto;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,7 +22,7 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
 
 
     @Override
-    public List<CarDto> searchCarDto(CarSearchCond cond) {
+    public List<CarDto> searchCarDto(CarSearchCond cond, Pageable pageable) {
         return queryFactory
                 .select(
                         new QCarDto(
@@ -43,7 +44,25 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
                         createDateBetween(cond.getCreateDateStart(), cond.getCreateDateEnd()),
                         releaseDateBetween(cond.getReleaseDateStart(), cond.getReleaseDateEnd())
                 )
+                .orderBy(car.createDate.desc(), car.releaseDate.desc(), car.carType.asc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .fetch();
+    }
+
+    @Override
+    public Long getCount(CarSearchCond cond) {
+        return queryFactory
+                .select(car.count())
+                .from(car)
+                .where(
+                        carTypeLike(cond.getCarType()),
+                        carNumberLike(cond.getCarNumber()),
+                        phoneNumberLike(cond.getPhoneNumber()),
+                        createDateBetween(cond.getCreateDateStart(), cond.getCreateDateEnd()),
+                        releaseDateBetween(cond.getReleaseDateStart(), cond.getReleaseDateEnd())
+                )
+                .fetchOne();
     }
 
     private BooleanExpression carTypeLike(String carType) {

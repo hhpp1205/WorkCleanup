@@ -20,27 +20,21 @@ public class InitData {
 
     @PostConstruct
     public void init() {
-        Car car1 = new Car();
-        car1.setCarNumber("31하 1313");
-        car1.setCarType("K5");
-        car1.setStatus(false);
-        car1.setCreateDate(LocalDateTime.now().minusDays(3L));
-        car1.setReleaseDate(LocalDateTime.now().minusDays(1L));
-        carRepository.save(car1);
+        for(int i =0; i<100; i++){
+            Car car = new Car();
+            car.setCarNumber(i+"하"+i);
+            car.setCarType("소나타" + i);
+            car.setStatus(false);
+            car.setComment("");
+            car.setCreateDate(LocalDateTime.now().minusDays(3L));
+            car.setReleaseDate(LocalDateTime.now().minusDays(1L));
+            carRepository.save(car);
+        }
+        for(int i =0; i<100; i++){
+            Insurance insurance = new Insurance();
+            insurance.setName("삼성" + i);
+            insuranceRepository.save(insurance);
+        }
 
-        Car car2 = new Car();
-        car2.setCarNumber("51하 1521");
-        car2.setCarType("그랜저");
-        car2.setStatus(false);
-        car2.setCreateDate(LocalDateTime.now().minusDays(6L));
-        carRepository.save(car2);
-
-        Insurance insurance1 = new Insurance();
-        insurance1.setName("삼성");
-        insuranceRepository.save(insurance1);
-
-        Insurance insurance2 = new Insurance();
-        insurance2.setName("DB");
-        insuranceRepository.save(insurance2);
     }
 }

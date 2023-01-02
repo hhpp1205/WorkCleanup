@@ -28,7 +28,6 @@ public class CarDto {
 
     private List<CarInsuranceDto> carInsuranceDtos;
 
-    private List<String> insuranceNames = new ArrayList<>(); //보험이름리스트
 
     public CarDto(Long id, String carType, String carNumber) {
         this.id = id;

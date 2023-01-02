@@ -83,7 +83,7 @@
         </td>
         <td th:text="${car.phoneNumber}">연락처</td>
         <td>
-          <button th:if="${car.comment != null}" type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" th:data-bs-target="'#exampleModal' + ${car.id} ">보기</button>
+          <button th:if="${car.comment.length() > 1}" type="button" class="btn btn-sm btn-secondary" data-bs-toggle="modal" th:data-bs-target="'#exampleModal' + ${car.id} ">보기</button>
         </td>
         <td th:text="${car.tow}">견인유무</td>
         <td th:text="${car.vat}">부과세</td>
@@ -125,11 +125,32 @@
   <!--pagination-->
     <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
-        <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        <li class="page-item"><a th:href="@{/car/list(page=${1},
+                      carType=${cond.carType},
+                      phoneNumber=${cond.phoneNumber},
+                      createDateStart=${cond.createDateStart},
+                      createDateEnd=${cond.createDateEnd},
+                      releaseDateStart=${cond.releaseDateStart},
+                      releaseDateEnd=${cond.releaseDateEnd})}" class="page-link">&lsaquo;</a>
+        </li>
+        <li class="page-item" th:classappend="${i == pageNumber + 1} ? 'active'" th:each="i : ${#numbers.sequence(beginPage, endPage)}">
+          <a class="page-link"
+             th:href="@{/car/list(page=${i - 1},
+                      carType=${cond.carType},
+                      phoneNumber=${cond.phoneNumber},
+                      createDateStart=${cond.createDateStart},
+                      createDateEnd=${cond.createDateEnd},
+                      releaseDateStart=${cond.releaseDateStart},
+                      releaseDateEnd=${cond.releaseDateEnd})}" th:text="${i}">
+          </a>
+        </li>
+        <li class="page-item"><a th:href="@{/car/list(page=${endPage},
+                      carType=${cond.carType},
+                      phoneNumber=${cond.phoneNumber},
+                      createDateStart=${cond.createDateStart},
+                      createDateEnd=${cond.createDateEnd},
+                      releaseDateStart=${cond.releaseDateStart},
+                      releaseDateEnd=${cond.releaseDateEnd})}" class="page-link">&rsaquo;</a></li>
       </ul>
     </nav>
 
