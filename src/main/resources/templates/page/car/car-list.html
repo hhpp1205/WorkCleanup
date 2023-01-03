@@ -127,16 +127,18 @@
       <ul class="pagination justify-content-center">
         <li class="page-item"><a th:href="@{/car/list(page=${1},
                       carType=${cond.carType},
+                      carNumber=${cond.carNumber},
                       phoneNumber=${cond.phoneNumber},
                       createDateStart=${cond.createDateStart},
                       createDateEnd=${cond.createDateEnd},
                       releaseDateStart=${cond.releaseDateStart},
                       releaseDateEnd=${cond.releaseDateEnd})}" class="page-link">&lsaquo;</a>
         </li>
-        <li class="page-item" th:classappend="${i == pageNumber + 1} ? 'active'" th:each="i : ${#numbers.sequence(beginPage, endPage)}">
+        <li class="page-item" th:classappend="${i == page.pageNumber + 1} ? 'active'" th:each="i : ${#numbers.sequence(page.beginPage, page.endPage)}">
           <a class="page-link"
              th:href="@{/car/list(page=${i - 1},
                       carType=${cond.carType},
+                      carNumber=${cond.carNumber},
                       phoneNumber=${cond.phoneNumber},
                       createDateStart=${cond.createDateStart},
                       createDateEnd=${cond.createDateEnd},
@@ -144,8 +146,9 @@
                       releaseDateEnd=${cond.releaseDateEnd})}" th:text="${i}">
           </a>
         </li>
-        <li class="page-item"><a th:href="@{/car/list(page=${endPage},
+        <li class="page-item"><a th:href="@{/car/list(page=${page.endPage},
                       carType=${cond.carType},
+                      carNumber=${cond.carNumber},
                       phoneNumber=${cond.phoneNumber},
                       createDateStart=${cond.createDateStart},
                       createDateEnd=${cond.createDateEnd},

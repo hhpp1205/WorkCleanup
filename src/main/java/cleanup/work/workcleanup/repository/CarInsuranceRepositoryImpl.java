@@ -26,7 +26,7 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
     private final JPAQueryFactory queryFactory;
 
     @Override
-    public List<CarInsuranceDto> searchCarInsuranceDto(CarInsuranceSearchCond carInsuranCond) {
+    public List<CarInsuranceDto> searchCarInsuranceDto(CarInsuranceSearchCond cond) {
         return queryFactory
                 .select(new QCarInsuranceDto(
                         carInsurance.id,
@@ -41,11 +41,11 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
                 .from(carInsurance)
                 .leftJoin(carInsurance.car, car)
                 .leftJoin(carInsurance.insurance, insurance)
-                .where(carTypeLike(carInsuranCond.getCarType()),
-                        carNumberLike(carInsuranCond.getCarNumber()),
-                        insuranceIdEq(carInsuranCond.getInsuranceId()),
-                        billDateBetween(carInsuranCond.getBillDateStart(), carInsuranCond.getBillDateEnd()),
-                        paymentDateBetween(carInsuranCond.getPaymentDateStart(), carInsuranCond.getPaymentDateEnd()))
+                .where(carTypeLike(cond.getCarType()),
+                        carNumberLike(cond.getCarNumber()),
+                        insuranceIdEq(cond.getInsuranceId()),
+                        billDateBetween(cond.getBillDateStart(), cond.getBillDateEnd()),
+                        paymentDateBetween(cond.getPaymentDateStart(), cond.getPaymentDateEnd()))
                 .fetch();
     }
 
@@ -75,7 +75,25 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
                 .fetch();
     }
 
-//    ================================== 검색 조건 ==================================
+    @Override
+    public Long getCount(CarInsuranceSearchCond cond) {
+        return queryFactory
+                .select(carInsurance.count())
+                .from(carInsurance)
+                .where(
+                        carTypeLike(cond.getCarType()),
+                        carNumberLike(cond.getCarNumber()),
+                        insuranceIdEq(cond.getInsuranceId()),
+                        billDateBetween(cond.getBillDateStart(), cond.getBillDateEnd()),
+                        paymentDateBetween(cond.getPaymentDateStart(), cond.getPaymentDateEnd())
+                )
+                .fetchOne();
+
+    }
+
+
+
+    //    ================================== 검색 조건 ==================================
     private BooleanExpression insuranceIdEq(Long insuranceId) {
         return (insuranceId != null) ? insurance.id.eq(insuranceId) : null;
     }

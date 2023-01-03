@@ -91,8 +91,42 @@
       </tbody>
     </table>
 
-  </div>
+    <!--pagination-->
+    <nav aria-label="Page navigation example">
+      <ul class="pagination justify-content-center">
+        <li class="page-item"><a th:href="@{/car-insurance/list(page=${1},
+                      carType=${cond.carType},
+                      carNumber=${cond.carNumber},
+                      insuranceId=${cond.insuranceId},
+                      billDateStart=${cond.billDateStart},
+                      billDateEnd=${cond.billDateEnd},
+                      paymentDateStart=${cond.paymentDateStart},
+                      paymentDateEnd=${cond.paymentDateEnd})}" class="page-link">&lsaquo;</a>
+        </li>
+        <li class="page-item" th:classappend="${i == page.pageNumber + 1} ? 'active'" th:each="i : ${#numbers.sequence(page.beginPage, page.endPage)}">
+          <a class="page-link"
+             th:href="@{/car-insurance/list(page=${1},
+                      carType=${cond.carType},
+                      carNumber=${cond.carNumber},
+                      insuranceId=${cond.insuranceId},
+                      billDateStart=${cond.billDateStart},
+                      billDateEnd=${cond.billDateEnd},
+                      paymentDateStart=${cond.paymentDateStart},
+                      paymentDateEnd=${cond.paymentDateEnd})}" th:text="${i}">
+          </a>
+        </li>
+        <li class="page-item"><a th:href="@{/car-insurance/list(page=${page.endPage},
+                      carType=${cond.carType},
+                      carNumber=${cond.carNumber},
+                      insuranceId=${cond.insuranceId},
+                      billDateStart=${cond.billDateStart},
+                      billDateEnd=${cond.billDateEnd},
+                      paymentDateStart=${cond.paymentDateStart},
+                      paymentDateEnd=${cond.paymentDateEnd})}" class="page-link">&rsaquo;</a></li>
+      </ul>
+    </nav>
 
+  </div>
 </div>
 </html>
 

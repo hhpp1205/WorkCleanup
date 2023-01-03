@@ -1,5 +1,6 @@
 package cleanup.work.workcleanup.controller;
 
+import cleanup.work.workcleanup.component.Page;
 import cleanup.work.workcleanup.controller.form.CarForm;
 import cleanup.work.workcleanup.controller.form.CarSearchCond;
 import cleanup.work.workcleanup.entity.Car;
@@ -28,17 +29,12 @@ public class CarController {
     public String list(CarSearchCond cond, Model model, Pageable pageable) {
         List<CarDto> cars = carService.getCarList(cond, pageable);
         Long totalCount = carRepository.getCount(cond);
+        Page page = new Page(totalCount, pageable);
 
-        int endPage = (int) Math.ceil((pageable.getPageNumber() + 1) / 5.0) * 5;
-        int beginPage = endPage - 4;
-        int realEndPage = (int) (Math.ceil((double) totalCount) / pageable.getPageSize());
-        if (endPage > realEndPage) endPage = realEndPage;
 
         model.addAttribute("cars", cars);
         model.addAttribute("cond", cond);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("beginPage", beginPage);
-        model.addAttribute("pageNumber", pageable.getPageNumber());
+        model.addAttribute("page", page);
         return "page/car/car-list";
     }
 

@@ -1,5 +1,6 @@
 package cleanup.work.workcleanup.controller;
 
+import cleanup.work.workcleanup.component.Page;
 import cleanup.work.workcleanup.controller.form.CarInsuranceForm;
 import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
 import cleanup.work.workcleanup.entity.Insurance;
@@ -12,6 +13,7 @@ import cleanup.work.workcleanup.service.CarInsuranceService;
 import cleanup.work.workcleanup.service.CarService;
 import cleanup.work.workcleanup.service.InsuranceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +28,7 @@ public class CarInsuranceController {
     private final CarInsuranceService carInsuranceService;
     private final InsuranceService insuranceService;
     private final InsuranceRepository insuranceRepository;
+    private final CarInsuranceRepository carInsuranceRepository;
     private final String path = "page/carinsurance/";
 
 
@@ -60,12 +63,16 @@ public class CarInsuranceController {
     }
 
     @GetMapping("/list")
-    public String list(Model model, CarInsuranceSearchCond cond) {
+    public String list(Model model, CarInsuranceSearchCond cond, Pageable pageable) {
         List<CarInsuranceDto> carInsuranceList = carInsuranceService.getCarInsuranceList(cond);
-        model.addAttribute("carInsuranceList", carInsuranceList);
-
         List<Insurance> insuranceList = insuranceRepository.getInsuranceList();
+        Long totalCount = carInsuranceRepository.getCount(cond);
+        Page page = new Page(totalCount, pageable);
+
+        model.addAttribute("cond", cond);
+        model.addAttribute("carInsuranceList", carInsuranceList);
         model.addAttribute("insuranceList", insuranceList);
+        model.addAttribute("page", page);
         return path + "car-insurance-list";
     }
 
