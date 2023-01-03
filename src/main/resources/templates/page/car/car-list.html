@@ -10,7 +10,7 @@
 </th:block>
 <!-- car-insurance-car-list.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
-  <!--    <script th:src="@{/js/page/home.js}"></script>-->
+  <script th:src="@{/js/formInit.js}"></script>
 </th:block>
 
 <!-- Content -->
@@ -20,40 +20,41 @@
 
   <div class="container">
 
-    <form class="mb-3" action="/car/list"  method="get" style="text-align: right">
+    <form id="post_form" class="mb-3" action="/car/list"  method="get" style="text-align: right">
       <div style="display: flex; justify-content: flex-end;" class="mb-3" >
         <div>
           <label for="carType" class="form-label">차종</label>
-          <input  id="carType" name="carType" type="text" class="form-control" placeholder="차량번호를 입력하세요">
+          <input th:value="${cond.carType}"  id="carType" name="carType" type="text" class="form-control" placeholder="차량번호를 입력하세요">
         </div>
         <div>
           <label for="carNumber" class="form-label">차량번호</label>
-          <input  id="carNumber" name="carNumber" type="text" class="form-control"  placeholder="차량번호를 입력하세요">
+          <input th:value="${cond.carNumber}"  id="carNumber" name="carNumber" type="text" class="form-control"  placeholder="차량번호를 입력하세요">
         </div>
         <div>
           <label for="phoneNumber" class="form-label">연락처</label>
-          <input  id="phoneNumber" name="phoneNumber" type="number" class="form-control" placeholder="'-'를 빼고 입력하세요">
+          <input th:value="${cond.phoneNumber}" id="phoneNumber" name="phoneNumber" type="number" class="form-control" placeholder="'-'를 빼고 입력하세요">
         </div>
       </div>
       <div style="display: flex; justify-content: flex-end;" class="mb-5" >
         <div>
           <label for="createDateStart" class="form-label">입고 시작날짜</label>
-          <input id="createDateStart" name="createDateStart" type="date" class="form-control">
+          <input th:value="${cond.createDateStart}" id="createDateStart" name="createDateStart" type="date" class="form-control">
         </div>
         <div style="margin-right: 30px">
           <label for="createDateEnd" class="form-label">끝날짜</label>
-          <input id="createDateEnd" name="createDateEnd" type="date" class="form-control">
+          <input th:value="${cond.createDateEnd}" id="createDateEnd" name="createDateEnd" type="date" class="form-control">
         </div>
         <div>
           <label for="releaseDateStart" class="form-label">출고 시작날짜</label>
-          <input id="releaseDateStart" name="releaseDateStart" type="date" class="form-control">
+          <input th:value="${cond.releaseDateStart}" id="releaseDateStart" name="releaseDateStart" type="date" class="form-control">
         </div>
         <div>
           <label for="releaseDateEnd" class="form-label">끝날짜</label>
-          <input id="releaseDateEnd" name="releaseDateEnd" type="date" class="form-control">
+          <input th:value="${cond.releaseDateEnd}" id="releaseDateEnd" name="releaseDateEnd" type="date" class="form-control">
         </div>
       </div>
       <button type="submit" class="btn btn-primary">검색</button>
+      <button type="button" onclick="initForm()" class="btn btn-danger">초기화</button>
     </form>
 
     <table class="table table-bordered">

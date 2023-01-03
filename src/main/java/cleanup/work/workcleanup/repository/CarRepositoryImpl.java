@@ -34,7 +34,6 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
                                 car.releaseDate,
                                 car.vat,
                                 car.comment,
-                                car.status,
                                 car.tow))
                 .from(car)
                 .where(

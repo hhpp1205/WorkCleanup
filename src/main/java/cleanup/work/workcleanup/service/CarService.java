@@ -32,7 +32,6 @@ public class CarService {
     public Long createCar(CarForm form) {
         Car car = form.toEntity();
 
-        validateDuplicateCar(car);
         carRepository.save(car);
         return car.getId();
     }
@@ -64,15 +63,7 @@ public class CarService {
         car.setReleaseDate(localDateToLocalDateTime(form.getReleaseDate()));
         car.setVat(form.getVat());
         car.setComment(form.getComment());
-        car.setStatus(form.getStatus());
         car.setTow(form.getTow());
-    }
-
-    private void validateDuplicateCar(Car car) {
-        List<Car> result = carRepository.findByCarNumber(car.getCarNumber());
-        if (!result.isEmpty()) {
-            throw new IllegalStateException("이미 존재하는 차량번호입니다.");
-        }
     }
 
     public List<CarDto> getCarList(CarSearchCond cond, Pageable pageable) {

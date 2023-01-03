@@ -21,7 +21,6 @@ public class Car {
     @Column(name = "car_id")
     private Long id;
 
-
     private String carType;            //차종
     private String phoneNumber;         //핸드폰번호
     private String carNumber;           //차량번호
@@ -29,14 +28,13 @@ public class Car {
     private LocalDateTime releaseDate;  //출고날짜
     private Long vat;                   //부과세
     private String comment;             //적요
-    private Boolean status;              //사장확인
     private Long tow;                 //견인 유무
 
     @OneToMany(mappedBy = "car")
     private List<CarInsurance> carInsurances = new ArrayList<>();  // 보험 1개일수도 2개일수도 있음
 
     @Builder
-    public Car(String carType, String phoneNumber, String carNumber, LocalDateTime createDate, LocalDateTime releaseDate, Long vat, String comment, Boolean status, Long tow) {
+    public Car(String carType, String phoneNumber, String carNumber, LocalDateTime createDate, LocalDateTime releaseDate, Long vat, String comment, Long tow) {
         this.carType = carType;
         this.phoneNumber = phoneNumber;
         this.carNumber = carNumber;
@@ -44,7 +42,6 @@ public class Car {
         this.releaseDate = releaseDate;
         this.vat = vat;
         this.comment = comment;
-        this.status = status;
         this.tow = tow;
         this.carInsurances = carInsurances;
     }
@@ -58,7 +55,6 @@ public class Car {
                 .releaseDate(localDateTimeDateToLocalDate(releaseDate))
                 .vat(vat)
                 .comment(comment)
-                .status(status)
                 .tow(tow)
                 .build();
     }

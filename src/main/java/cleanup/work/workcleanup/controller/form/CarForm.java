@@ -25,11 +25,10 @@ public class CarForm {
     private LocalDate releaseDate;  //출고날짜
     private Long vat;                   //부과세
     private String comment;             //적요
-    private Boolean status;              //사장확인
     private Long tow;                 //견인 유무
 
     @Builder
-    public CarForm(Long id, String carType, String phoneNumber, String carNumber, LocalDate createDate, LocalDate releaseDate, Long vat, String comment, Boolean status, Long tow) {
+    public CarForm(Long id, String carType, String phoneNumber, String carNumber, LocalDate createDate, LocalDate releaseDate, Long vat, String comment, Long tow) {
         this.id = id;
         this.carType = carType;
         this.phoneNumber = phoneNumber;
@@ -38,7 +37,6 @@ public class CarForm {
         this.releaseDate = releaseDate;
         this.vat = vat;
         this.comment = comment;
-        this.status = status;
         this.tow = tow;
     }
 
@@ -49,7 +47,6 @@ public class CarForm {
                 .carNumber(carNumber)
                 .vat(vat)
                 .comment(comment)
-                .status(status)
                 .tow(tow)
                 .createDate(localDateToLocalDateTime(createDate))
                 .releaseDate(localDateToLocalDateTime(releaseDate))
