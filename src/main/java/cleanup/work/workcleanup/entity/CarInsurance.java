@@ -19,7 +19,7 @@ import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConver
 public class CarInsurance {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_insurance_id")
     private Long id;
 

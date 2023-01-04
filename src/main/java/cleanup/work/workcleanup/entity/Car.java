@@ -17,7 +17,7 @@ import static cleanup.work.workcleanup.converter.LocalDateAndLocalDateTimeConver
 public class Car {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "car_id")
     private Long id;
 

@@ -17,7 +17,7 @@ import java.util.List;
 public class Insurance {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "insurance_id")
     private Long id;
 
