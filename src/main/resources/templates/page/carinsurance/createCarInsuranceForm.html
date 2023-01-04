@@ -11,6 +11,7 @@
 <!-- insurance-car-list.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
   <script type="text/javascript" th:src="@{/js/createCarInsuranceForm.js}"></script>
+  <script type="text/javascript" th:src="@{/js/validationCarInsurance.js}"></script>
 </th:block>
 
 <!-- Content -->
@@ -18,7 +19,7 @@
   <div class="container">
 
     <h2 class="mt-5 mb-5" style="text-align: center">보험 수리비 명세표 추가</h2>
-    <form th:action="@{/car-insurance/new}" th:object="${carInsuranceForm}" method="post">
+    <form id="car_insurance_form" th:action="@{/car-insurance/new}" th:object="${carInsuranceForm}" method="post">
       <div class="mb-3" style="display: flex">
         <select id="carId" name="carId" class="form-select" aria-label="Default select example">
           <option value="" selected>==차량선택==</option>
@@ -55,8 +56,8 @@
         <input th:field="*{excess}" type="number" class="form-control" placeholder="면책금을 입력하세요">
       </div>
       <div style="text-align: right">
-        <button type="submit" class="btn btn-primary">완료</button>
-        <button type="button" class="btn btn-danger">취소</button>
+        <button onclick="submitForm()" type="button" class="btn btn-primary">완료</button>
+        <button type="button" class="btn btn-danger"><a href="/" style="color: white; text-decoration: none;">취소</a></button>
       </div>
     </form>
 

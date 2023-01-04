@@ -1,4 +1,4 @@
 function initForm() {
-    let input = document.querySelectorAll('.form-control');
-    input.forEach(i => i.value = null);
+    const INPUTANDSELECT = document.querySelectorAll('.form-control, .form-select');
+    INPUTANDSELECT.forEach(i => i.value = null);
 }

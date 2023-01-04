@@ -11,7 +11,6 @@ import java.time.LocalDateTime;
 public class CarInsuranceDto {
 
     private Long id;
-
     private Long carId;                  //carId
     private String carType;             //차량종류
     private String carNumber;             //차량번호
@@ -35,7 +34,8 @@ public class CarInsuranceDto {
         this.insuranceName = insuranceName;
     }
     @QueryProjection
-    public CarInsuranceDto(Long carId, LocalDateTime paymentDate, String insuranceName) {
+    public CarInsuranceDto(Long id, Long carId, LocalDateTime paymentDate, String insuranceName) {
+        this.id = id;
         this.carId = carId;
         this.paymentDate = paymentDate;
         this.insuranceName = insuranceName;

@@ -80,7 +80,12 @@
         <td th:text="${car.carType}">차종</td>
         <th scope="row" th:text="${car.carNumber}">차량번호</th>
         <td class="slash">
-          <div th:each="ciDto : ${car.carInsuranceDtos}" th:text="${ciDto.insuranceName}">보험</div>
+          <th:block th:each="ciDto : ${car.carInsuranceDtos}">
+            <div>
+              <a th:text="${ciDto.insuranceName}" th:href="@{/car-insurance/{id}/edit (id=${ciDto.id})}">보험명</a>
+            </div>
+          </th:block>
+
         </td>
         <td th:text="${car.phoneNumber}">연락처</td>
         <td>
