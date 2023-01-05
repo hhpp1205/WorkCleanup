@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<!-- insurance-car-list.html 고유 CSS 추가 -->
+<th:block layout:fragment="css">
+  <link rel="stylesheet" th:href="@{/css/createCarForm.css}"/>
+</th:block>
+<!-- insurance-car-list.html 고유 스크립트 추가 -->
+<th:block layout:fragment="script">
+</th:block>
+
+<!-- Content -->
+<div layout:fragment="content">
+  <div class="container">
+
+    <form action="/excel/new" method="post">
+      <div>
+        <label for="startDate" class="form-label">시작 날짜</label>
+        <input  id="startDate" name="startDate" type="date" class="form-control">
+      </div>
+      <div>
+        <label for="endDate" class="form-label">끝 날짜</label>
+        <input  id="endDate" name="endDate" type="date" class="form-control">
+      </div>
+      <select id="InsuranceName" name="InsuranceName" class="form-select" aria-label="Default select example" style="width: 200px;">
+        <option value="" selected>==엑셀종류==</option>
+        <option value="삼성" selected>삼성</option>
+      </select>
+      <select id="excelType" name="excelType" class="form-select" aria-label="Default select example" style="width: 200px;">
+        <option value="" selected>==엑셀종류==</option>
+        <option th:each="excelType : ${T(cleanup.work.workcleanup.controller.form.ExcelType).values()}" th:value="${excelType}" th:text="${excelType.getDisplayValue()}">엑셀종류</option>
+      </select>
+      <button type="submit" class="btn btn-primary">검색</button>
+    </form>
+
+  </div>
+</div>
+</html>

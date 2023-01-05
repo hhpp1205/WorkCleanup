@@ -31,9 +31,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.8.0'
 
-//	thymeleaf-layout-dialect
 	implementation group: 'nz.net.ultraq.thymeleaf', name: 'thymeleaf-layout-dialect', version: '3.0.0'
 	implementation 'org.mariadb.jdbc:mariadb-java-client:3.0.6'
+	implementation 'hu.blackbelt.bundles.poi:org.apache.poi:4.1.2_2'
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 

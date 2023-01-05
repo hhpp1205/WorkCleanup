@@ -2,6 +2,7 @@ package cleanup.work.workcleanup.repository.custom;
 
 import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
 import cleanup.work.workcleanup.controller.form.CarSearchCond;
+import cleanup.work.workcleanup.controller.form.ExcelForm;
 import cleanup.work.workcleanup.entity.CarInsurance;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,6 @@ public interface CarInsuranceRepositoryCustom {
     List<CarInsuranceDto> findCarInsuranceDtoByCarIds(@Param("carIds") List<Long> carIds);
 
     Long getCount(CarInsuranceSearchCond cond);
+
+    List<CarInsuranceDto> excelSearch(ExcelForm excelForm);
 }

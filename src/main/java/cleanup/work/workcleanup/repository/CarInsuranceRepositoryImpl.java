@@ -2,6 +2,7 @@ package cleanup.work.workcleanup.repository;
 
 import cleanup.work.workcleanup.controller.form.CarInsuranceSearchCond;
 import cleanup.work.workcleanup.controller.form.CarSearchCond;
+import cleanup.work.workcleanup.controller.form.ExcelForm;
 import cleanup.work.workcleanup.entity.CarInsurance;
 import cleanup.work.workcleanup.repository.custom.CarInsuranceRepositoryCustom;
 import cleanup.work.workcleanup.repository.dto.CarInsuranceDto;
@@ -91,6 +92,29 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
 
     }
 
+    @Override
+    public List<CarInsuranceDto> excelSearch(ExcelForm excelForm) {
+        return queryFactory
+                .select(new QCarInsuranceDto(
+                        carInsurance.id,
+                        car.carType,
+                        car.carNumber,
+                        carInsurance.billDate,
+                        carInsurance.paymentDate,
+                        carInsurance.bill,
+                        carInsurance.amount,
+                        carInsurance.excess,
+                        insurance.name.as("insuranceName")))
+                .from(carInsurance)
+                .leftJoin(carInsurance.car, car)
+                .leftJoin(carInsurance.insurance, insurance)
+                .where(
+                        billDateBetween(excelForm.getStartDate(), excelForm.getEndDate()),
+                        insurance.name.contains(excelForm.getInsuranceName())
+                )
+                .fetch();
+
+    }
 
 
     //    ================================== 검색 조건 ==================================
@@ -146,7 +170,7 @@ public class CarInsuranceRepositoryImpl implements CarInsuranceRepositoryCustom 
 
     private BooleanExpression billDateBetween(LocalDate start, LocalDate end) {
         if (start != null && end != null) {
-            return carInsurance.paymentDate.between(start.atStartOfDay(), end.atStartOfDay());
+            return carInsurance.billDate.between(start.atStartOfDay(), end.atStartOfDay());
         } else if (start == null && end != null) {
             return billDateLoe(end);
         } else {
