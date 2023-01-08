@@ -15,5 +15,5 @@ public class ExcelForm {
 
     private ExcelType excelType;        //Excel종류 (CAR, CARINSURANCE)
 
-    private String InsuranceName;       // 추출 할 보험이름
+    private String insuranceName;       // 추출 할 보험이름
 }

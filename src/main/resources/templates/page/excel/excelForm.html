@@ -10,13 +10,14 @@
 </th:block>
 <!-- insurance-car-list.html 고유 스크립트 추가 -->
 <th:block layout:fragment="script">
+  <script type="text/javascript" th:src="@{/js/excelForm.js}"></script>
 </th:block>
 
 <!-- Content -->
 <div layout:fragment="content">
   <div class="container">
 
-    <form action="/excel/new" method="post">
+    <form id="excel_form" action="/excel/new" method="post">
       <div>
         <label for="startDate" class="form-label">시작 날짜</label>
         <input  id="startDate" name="startDate" type="date" class="form-control">
@@ -25,15 +26,15 @@
         <label for="endDate" class="form-label">끝 날짜</label>
         <input  id="endDate" name="endDate" type="date" class="form-control">
       </div>
-      <select id="InsuranceName" name="InsuranceName" class="form-select" aria-label="Default select example" style="width: 200px;">
-        <option value="" selected>==엑셀종류==</option>
-        <option value="삼성" selected>삼성</option>
+      <select id="insuranceName" name="insuranceName" class="form-select" aria-label="Default select example" style="width: 200px;">
+        <option value="" selected>==보험종류==</option>
+        <option th:each="insurance : ${insuranceNames}" th:text="${insurance}" th:value="${insurance}">보험이름</option>
       </select>
       <select id="excelType" name="excelType" class="form-select" aria-label="Default select example" style="width: 200px;">
         <option value="" selected>==엑셀종류==</option>
         <option th:each="excelType : ${T(cleanup.work.workcleanup.controller.form.ExcelType).values()}" th:value="${excelType}" th:text="${excelType.getDisplayValue()}">엑셀종류</option>
       </select>
-      <button type="submit" class="btn btn-primary">검색</button>
+      <button type="button" onclick="submitForm()" class="btn btn-primary">엑셀 저장</button>
     </form>
 
   </div>

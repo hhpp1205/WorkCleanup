@@ -22,12 +22,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
 public class ExcelService {
+
 
     private final String FilePath = "C:/CarExcel/";
     private final String FileName = "CarExcel";
@@ -39,7 +41,7 @@ public class ExcelService {
         List<CarInsuranceDto> ciDtos = carInsuranceRepository.excelSearch(excelForm);
 
         XSSFWorkbook workbook = new XSSFWorkbook();
-        XSSFSheet sheet = workbook.createSheet("삼성");
+        XSSFSheet sheet = workbook.createSheet(excelForm.getInsuranceName());
         createRowAndCell(sheet, ciDtos);
 
         createCarInsuranceTemplate(workbook, sheet, excelForm.getInsuranceName());
@@ -115,7 +117,7 @@ public class ExcelService {
             cell3.setCellStyle(getDefaultStyle(workbook));
 
             XSSFCell cell4 = row.getCell(4);
-            cell4.setCellValue(ciDtos.get(rowNum-3).getPaymentDate());
+            cell4.setCellValue(ciDtos.get(rowNum-3).getPaymentDate().format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             cell4.setCellStyle(getDefaultStyle(workbook));
 
             XSSFCell cell5 = row.getCell(5);

@@ -1,13 +1,15 @@
 spring:
   datasource:
-    url: jdbc:mariadb://localhost:3306/car_info_clean
-    username: car_info_clean
-    password: 1234
-
+    url: jdbc:h2:tcp://localhost/~/test
+    username: sa
+    password:
+  #    url: jdbc:mariadb://localhost:3306/car_info_clean
+#    username: car_info_clean
+#    password: 1234
 
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: create
     properties:
       hibernate:
         show_sql: true
