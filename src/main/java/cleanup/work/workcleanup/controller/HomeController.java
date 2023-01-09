@@ -17,8 +17,7 @@ import java.util.List;
 
 /**
  * TODO
- * 1. 차량 목록 Excel로 추출
- * 2. 보험별 목록 Excel로 추출
+ * 1. Excel에 데이터 넣을 때 null 체크해서 넣기 (null이면 오류남)
  */
 @Controller
 @RequiredArgsConstructor

@@ -13,7 +13,9 @@ function submitForm() {
         alert("끝 날짜를 입력하세요");
         endDate.focus();
         return;
-    }else if(insuranceName.value == null || insuranceName.value == ''){
+    }else if ((insuranceName.value == null || insuranceName.value == '') && excelType.value == 'CAR'){
+        form.submit();
+    } else if(insuranceName.value == null || insuranceName.value == ''){
         alert("보험종류를 선택하세요");
         insuranceName.focus();
         return;

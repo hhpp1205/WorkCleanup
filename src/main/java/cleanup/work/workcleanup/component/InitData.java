@@ -34,7 +34,11 @@ public class InitData {
             Car car = new Car();
             car.setCarNumber(i+"하"+i);
             car.setCarType("소나타" + i);
-            car.setComment("");
+            car.setPhoneNumber("01012345678");
+
+            car.setComment(String.valueOf(i));
+            car.setTow(10000L);
+            car.setVat(20000L);
             car.setCreateDate(LocalDateTime.now().minusDays(3L));
             car.setReleaseDate(LocalDateTime.now().minusDays(1L));
             carRepository.save(car);

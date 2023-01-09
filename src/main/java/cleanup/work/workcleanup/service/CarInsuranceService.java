@@ -28,7 +28,7 @@ import static java.util.stream.Collectors.*;
  * 1-2.보험 목록 불러오기 보험이름
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CarInsuranceService {
 
@@ -71,6 +71,7 @@ public class CarInsuranceService {
         CarInsurance carInsurance = carInsuranceRepository.findByIdFetch(carInsuranceId).orElseThrow(NoSuchElementException::new);
         updateFormToCarInsurance(carInsurance, carInsuranceForm);
     }
+
 
     private void updateFormToCarInsurance(CarInsurance carInsurance, CarInsuranceForm form) {
         Car findCar = carRepository.findById(form.getCarId()).orElseThrow(NoSuchElementException::new);

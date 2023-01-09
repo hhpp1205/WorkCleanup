@@ -96,7 +96,7 @@
         <td th:text="${car.vat}">면책금</td>
         <td th:text="${#temporals.format(car.releaseDate, 'yyyy-MM-dd')}">출고날짜</td>
         <td >
-          <div th:each="ciDto : ${car.carInsuranceDtos}" th:text="${#temporals.format(ciDto.paymentDate, 'yyyy-MM-dd')}"></div>
+          <div th:each="ciDto : ${car.carInsuranceDtos}" th:text="${#temporals.format(ciDto.paymentDate, 'yyyy-MM-dd')}">입금날짜</div>
         </td>
         <td>
           <a  th:href="@{/car/{id}/edit (id=${car.id})}"><button type="button" class="btn btn-sm btn-primary">차량변경</button></a>

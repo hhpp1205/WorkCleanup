@@ -69,13 +69,15 @@ public class CarService {
     public List<CarDto> getCarList(CarSearchCond cond, Pageable pageable) {
 
         List<CarDto> carDtos = carRepository.searchCarDto(cond, pageable);
-
-        List<Long> carIds = carDtos.stream()
-                .map(c -> c.getId())
-                .collect(Collectors.toList());
-
+        List<Long> carIds = getCarIds(carDtos);
         List<CarInsuranceDto> carInsuranceDtos = carInsuranceRepository.findCarInsuranceDtoByCarIds(carIds);
 
+        matchingCarAndInsurance(carDtos, carInsuranceDtos);
+
+        return carDtos;
+    }
+
+    public void matchingCarAndInsurance(List<CarDto> carDtos, List<CarInsuranceDto> carInsuranceDtos) {
         for (CarDto cd : carDtos) {
             for (CarInsuranceDto ci : carInsuranceDtos) {
                 if (cd.getId().equals(ci.getCarId())) {
@@ -83,8 +85,13 @@ public class CarService {
                 }
             }
         }
+    }
 
-        return carDtos;
+    public List<Long> getCarIds(List<CarDto> carDtos) {
+        List<Long> carIds = carDtos.stream()
+                .map(c -> c.getId())
+                .collect(Collectors.toList());
+        return carIds;
     }
 
 }

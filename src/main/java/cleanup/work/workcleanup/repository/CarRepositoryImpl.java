@@ -1,6 +1,7 @@
 package cleanup.work.workcleanup.repository;
 
 import cleanup.work.workcleanup.controller.form.CarSearchCond;
+import cleanup.work.workcleanup.controller.form.ExcelForm;
 import cleanup.work.workcleanup.repository.custom.CarRepositoryCustom;
 import cleanup.work.workcleanup.repository.dto.CarDto;
 import cleanup.work.workcleanup.repository.dto.QCarDto;
@@ -50,6 +51,28 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
     }
 
     @Override
+    public List<CarDto> excelSearch(ExcelForm excelForm) {
+        return queryFactory
+                .select(
+                        new QCarDto(
+                                car.id,
+                                car.carType,
+                                car.phoneNumber,
+                                car.carNumber,
+                                car.createDate,
+                                car.releaseDate,
+                                car.vat,
+                                car.comment,
+                                car.tow))
+                .from(car)
+                .where(
+                        createDateBetween(excelForm.getStartDate(), excelForm.getEndDate())
+                )
+                .orderBy(car.createDate.desc())
+                .fetch();
+    }
+
+    @Override
     public Long getCount(CarSearchCond cond) {
         return queryFactory
                 .select(car.count())
@@ -63,6 +86,7 @@ public class CarRepositoryImpl implements CarRepositoryCustom {
                 )
                 .fetchOne();
     }
+
 
     private BooleanExpression carTypeLike(String carType) {
         return hasText(carType) ? car.carType.contains(carType) : null;
